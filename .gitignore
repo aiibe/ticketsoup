@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# PocketBase
+pb
+pb_data
+pocketbase_bin
+
+# Environment variables
+.env
