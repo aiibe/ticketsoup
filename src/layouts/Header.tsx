@@ -14,7 +14,7 @@ export default function Header() {
   }
 
   return (
-    <header className="flex h-12 items-center justify-between border-b border-b-gray-300 p-2">
+    <header className="flex h-[48px] items-center justify-between border-b border-b-gray-300 p-2">
       <Link to="/">
         <img src="/ticketsoup.svg" alt="TicketSoup" />
       </Link>
@@ -25,7 +25,7 @@ export default function Header() {
             <>
               {/* Logout */}
               <li>
-                <Button size="sm" onClick={logOut}>
+                <Button size="sm" variant="secondary" onClick={logOut}>
                   Logout
                 </Button>
               </li>

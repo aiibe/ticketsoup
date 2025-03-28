@@ -10,5 +10,5 @@ export default function useAuth() {
     });
   }, []);
 
-  return { isLoggedIn };
+  return { isLoggedIn, isSuperUser: pb.authStore.isSuperuser };
 }

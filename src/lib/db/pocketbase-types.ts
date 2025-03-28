@@ -11,7 +11,8 @@ export enum Collections {
 	Mfas = "_mfas",
 	Otps = "_otps",
 	Superusers = "_superusers",
-	Users = "users",
+	Agents = "agents",
+	Tickets = "tickets",
 }
 
 // Alias types for improved usability
@@ -85,17 +86,23 @@ export type SuperusersRecord = {
 	verified?: boolean
 }
 
-export type UsersRecord = {
-	avatar?: string
+export type AgentsRecord = {
 	created?: IsoDateString
 	email: string
 	emailVisibility?: boolean
 	id: string
-	name?: string
 	password: string
 	tokenKey: string
 	updated?: IsoDateString
 	verified?: boolean
+}
+
+export type TicketsRecord = {
+	created?: IsoDateString
+	id: string
+	message: string
+	sender: string
+	updated?: IsoDateString
 }
 
 // Response types include system fields and match responses from the PocketBase API
@@ -104,7 +111,8 @@ export type ExternalauthsResponse<Texpand = unknown> = Required<ExternalauthsRec
 export type MfasResponse<Texpand = unknown> = Required<MfasRecord> & BaseSystemFields<Texpand>
 export type OtpsResponse<Texpand = unknown> = Required<OtpsRecord> & BaseSystemFields<Texpand>
 export type SuperusersResponse<Texpand = unknown> = Required<SuperusersRecord> & AuthSystemFields<Texpand>
-export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
+export type AgentsResponse<Texpand = unknown> = Required<AgentsRecord> & AuthSystemFields<Texpand>
+export type TicketsResponse<Texpand = unknown> = Required<TicketsRecord> & BaseSystemFields<Texpand>
 
 // Types containing all Records and Responses, useful for creating typing helper functions
 
@@ -114,7 +122,8 @@ export type CollectionRecords = {
 	_mfas: MfasRecord
 	_otps: OtpsRecord
 	_superusers: SuperusersRecord
-	users: UsersRecord
+	agents: AgentsRecord
+	tickets: TicketsRecord
 }
 
 export type CollectionResponses = {
@@ -123,7 +132,8 @@ export type CollectionResponses = {
 	_mfas: MfasResponse
 	_otps: OtpsResponse
 	_superusers: SuperusersResponse
-	users: UsersResponse
+	agents: AgentsResponse
+	tickets: TicketsResponse
 }
 
 // Type for usage with type asserted PocketBase instance
@@ -135,5 +145,6 @@ export type TypedPocketBase = PocketBase & {
 	collection(idOrName: '_mfas'): RecordService<MfasResponse>
 	collection(idOrName: '_otps'): RecordService<OtpsResponse>
 	collection(idOrName: '_superusers'): RecordService<SuperusersResponse>
-	collection(idOrName: 'users'): RecordService<UsersResponse>
+	collection(idOrName: 'agents'): RecordService<AgentsResponse>
+	collection(idOrName: 'tickets'): RecordService<TicketsResponse>
 }

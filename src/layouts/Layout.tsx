@@ -12,7 +12,7 @@ export default function Layout(props: PropsWithChildren) {
     <>
       <Header />
 
-      <main className="flex">
+      <main className="flex flex-1">
         {isLoggedIn && <Sidebar />}
 
         {children}
