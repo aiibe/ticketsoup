@@ -1,40 +1,31 @@
-import { pb } from "@/lib/db/pocketbase";
-import { PropsWithChildren } from "react";
-import { useLocation } from "wouter";
+import { PropsWithChildren, ReactNode } from "react";
+import Header from "./Header";
+import Footer from "./Footer";
+import Sidebar from "./Sidebar";
+import useAuthStore from "@/features/auth/useAuthStore";
 
-export default function Layout(props: PropsWithChildren) {
-  const { children } = props;
+type Props = {
+  List: ReactNode;
+};
+
+export default function Layout(props: PropsWithChildren<Props>) {
+  const { children, List } = props;
+
+  // TODO Remove from here
+  const auth = useAuthStore((state) => state.auth);
+  const isLoggedIn = auth?.isValid;
+
   return (
     <>
       <Header />
 
-      <main>{children}</main>
+      <main className="flex flex-1">
+        {isLoggedIn && <Sidebar>{List}</Sidebar>}
+
+        {children}
+      </main>
 
       <Footer />
     </>
   );
-}
-
-function Header() {
-  const [, navigate] = useLocation();
-  const isLoggedIn = pb.authStore.isValid;
-
-  function logOut() {
-    pb.authStore.clear();
-    navigate("/login");
-  }
-
-  return (
-    <header>
-      <nav>
-        <ul className="flex gap-4">
-          {isLoggedIn && <li onClick={logOut}>Sign out</li>}
-        </ul>
-      </nav>
-    </header>
-  );
-}
-
-function Footer() {
-  return <footer>Footer</footer>;
 }

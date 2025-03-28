@@ -1,16 +1,17 @@
 import useAuthStore from "@/features/auth/useAuthStore";
-import TicketList from "@/features/tickets/TicketList";
+import TicketView from "@/features/tickets/TicketView";
 import Section from "@/layouts/Section";
-import { Redirect } from "wouter";
+import { Redirect, useParams } from "wouter";
 
-export default function Home() {
+export default function TicketPage() {
+  const { id } = useParams<{ id: string }>();
+
   const auth = useAuthStore((state) => state.auth);
   if (!auth?.isValid) return <Redirect to="/login" />;
 
   return (
-    <Section className="bg-background p-2">
-      <h1 className="">Home</h1>
-      <TicketList />
+    <Section>
+      <TicketView ticketId={id} />
     </Section>
   );
 }
