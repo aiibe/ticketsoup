@@ -1,40 +1,24 @@
-import { pb } from "@/lib/db/pocketbase";
 import { PropsWithChildren } from "react";
-import { useLocation } from "wouter";
+import Header from "./Header";
+import Footer from "./Footer";
+import Sidebar from "./Sidebar";
+import useAuth from "@/hooks/useAuth";
 
 export default function Layout(props: PropsWithChildren) {
   const { children } = props;
+  const { isLoggedIn } = useAuth();
+
   return (
     <>
       <Header />
 
-      <main>{children}</main>
+      <main className="flex">
+        {isLoggedIn && <Sidebar />}
+
+        {children}
+      </main>
 
       <Footer />
     </>
   );
-}
-
-function Header() {
-  const [, navigate] = useLocation();
-  const isLoggedIn = pb.authStore.isValid;
-
-  function logOut() {
-    pb.authStore.clear();
-    navigate("/login");
-  }
-
-  return (
-    <header>
-      <nav>
-        <ul className="flex gap-4">
-          {isLoggedIn && <li onClick={logOut}>Sign out</li>}
-        </ul>
-      </nav>
-    </header>
-  );
-}
-
-function Footer() {
-  return <footer>Footer</footer>;
 }
