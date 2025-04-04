@@ -21,3 +21,5 @@ Otherwise, run the pocketbase service :
 ```bash
 ./pocketbase_bin serve
 ```
+
+### Push image on ghcr.io
