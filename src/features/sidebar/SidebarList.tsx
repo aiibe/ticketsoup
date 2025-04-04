@@ -13,11 +13,21 @@ export default function SidebarList() {
       {isSuperUser && (
         <>
           <li>
-            <Link to="/feedback">Feedback</Link>
+            <Link
+              className="hover:bg-accent flex justify-between rounded-lg px-2 py-1"
+              to="/feedback"
+            >
+              Feedback
+            </Link>
           </li>
 
           <li>
-            <Link to="/_admin/agents">Agents</Link>
+            <Link
+              className="hover:bg-accent flex justify-between rounded-lg px-2 py-1"
+              to="/_admin/agents"
+            >
+              Agents
+            </Link>
           </li>
         </>
       )}

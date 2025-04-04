@@ -2,14 +2,16 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import { SendHorizonal } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type Props = {
   onSubmit: (formData: { message: string }) => void;
   disabled?: boolean;
+  className?: string;
 };
 
 export default function MessageInput(props: Props) {
-  const { onSubmit, disabled } = props;
+  const { onSubmit, disabled, className } = props;
 
   const [message, setMessage] = useState("");
 
@@ -28,7 +30,7 @@ export default function MessageInput(props: Props) {
   }
 
   return (
-    <div>
+    <div className={cn(className)}>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -40,7 +42,7 @@ export default function MessageInput(props: Props) {
           disabled={disabled}
           name="message"
           autoFocus
-          className="bg-card min-h-8 resize-none rounded-xl"
+          className="z-20 min-h-8 resize-none rounded-xl bg-white"
           placeholder="Type a message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}

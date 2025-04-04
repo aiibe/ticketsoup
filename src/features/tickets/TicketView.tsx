@@ -1,5 +1,7 @@
 import useTicketStore from "./useTicketStore";
-import { MessageProps } from "@/components/conversation/MessageItem";
+import MessageItem, {
+  MessageProps,
+} from "@/components/conversation/MessageItem";
 import useAuthStore from "../auth/useAuthStore";
 import useSubscribeMessages from "../messages/useSubscribeMessages";
 import Chat from "@/components/conversation/Chat";
@@ -15,11 +17,18 @@ export default function TicketView(props: Props) {
   const ticket = tickets.find((t) => t.id === ticketId);
 
   const auth = useAuthStore((state) => state.auth);
-  const { messages } = useSubscribeMessages(ticketId);
+  const { messages, loading: loadingMessages } = useSubscribeMessages(ticketId);
 
-  if (!ticket) return null;
+  if (loadingMessages) return null;
+  if (!ticket || !auth) return null;
 
   const customerEmail = ticket.expand?.customer_id?.email || "unknown";
+
+  const rootTicket: MessageProps = {
+    align: ticket.customer_id === auth?.record?.id ? "end" : "start",
+    ...ticket,
+    sender: customerEmail === auth?.record?.email ? "You" : customerEmail,
+  };
 
   const conversation: MessageProps[] = messages.map((message) => {
     const isAgent = message.agent_id === auth?.record?.id;
@@ -37,15 +46,6 @@ export default function TicketView(props: Props) {
       sender,
     };
   });
-
-  const mergeTicketMessages: MessageProps[] = [
-    {
-      align: ticket.customer_id === auth?.record?.id ? "end" : "start",
-      ...ticket,
-      sender: customerEmail === auth?.record?.email ? "You" : customerEmail,
-    },
-    ...conversation,
-  ];
 
   async function handleSubmit(formData: { message: string }) {
     if (ticket && auth?.record) {
@@ -70,10 +70,11 @@ export default function TicketView(props: Props) {
         </span>
       </div>
 
-      <div>
+      <div className="mx-auto flex max-w-3xl flex-col gap-4">
+        <MessageItem {...rootTicket} className="w-full" />
+
         <Chat
-          className="mx-auto max-w-3xl"
-          messages={mergeTicketMessages}
+          messages={conversation}
           onSubmit={handleSubmit}
           disabledSend={auth?.isSuperuser}
         />

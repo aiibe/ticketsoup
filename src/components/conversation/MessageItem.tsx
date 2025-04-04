@@ -5,26 +5,27 @@ import DateAutoRefresh from "../DateAutoRefresh";
 export type MessageProps = {
   message: string;
   sender: string;
-  created?: string;
   align: "start" | "end";
+  created?: string;
+  className?: string;
 };
 
 export default function MessageItem(props: MessageProps) {
-  const { message, sender, created, align } = props;
+  const { message, sender, created, align, className } = props;
 
   const isAlignStart = align === "start";
   const alignItems = isAlignStart ? "items-start" : "items-end";
   const rowReverse = isAlignStart ? "" : "flex-row-reverse";
   const background = isAlignStart
-    ? "bg-muted"
+    ? "bg-accent"
     : "bg-primary text-primary-foreground border-primary";
   const corner = isAlignStart ? "rounded-bl-none " : "rounded-br-none";
 
   return (
-    <div className={cn("flex flex-col gap-1", alignItems)}>
+    <div className={cn("flex flex-col gap-1", alignItems, className)}>
       <Card
         className={cn(
-          "min-w-[180px] rounded-t-xl px-3 py-1 whitespace-pre-wrap",
+          "max-w-[80%] min-w-[180px] rounded-t-xl border-none px-3 py-2 whitespace-pre-wrap",
           background,
           corner,
         )}

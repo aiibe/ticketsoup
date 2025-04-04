@@ -10,7 +10,7 @@ export default function TicketPage() {
   if (!auth?.isValid) return <Redirect to="/login" />;
 
   return (
-    <Section>
+    <Section className="bg-card">
       <TicketView ticketId={id} />
     </Section>
   );

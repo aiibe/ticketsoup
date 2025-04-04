@@ -1,12 +1,18 @@
 import { cn } from "@/lib/utils";
 
-export default function Section(props: React.ComponentProps<"section">) {
+type Props = React.ComponentProps<"section"> & {
+  className?: string;
+};
+
+export default function Section(props: Props) {
+  const { className, ...rest } = props;
   return (
     <section
       className={cn(
-        "bg-card h-[calc(100vh-48px-36px)] w-full overflow-y-scroll",
+        "h-[calc(100vh-48px-36px)] w-full overflow-y-scroll",
+        className,
       )}
-      {...props}
+      {...rest}
     />
   );
 }

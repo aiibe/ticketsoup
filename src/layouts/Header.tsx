@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import useAuthStore from "@/features/auth/useAuthStore";
 import { pb } from "@/lib/db/pocketbase";
@@ -17,9 +18,15 @@ export default function Header() {
 
   return (
     <header className="flex h-[48px] items-center justify-between border-b bg-white p-2">
-      <Link to="/">
-        <img src="/ticketsoup.svg" alt="TicketSoup" />
-      </Link>
+      <div className="flex items-center gap-2">
+        <Link to="/">
+          <img src="/ticketsoup.svg" alt="TicketSoup" />
+        </Link>
+
+        {isLoggedIn && (
+          <Badge variant="outline">{auth?.record?.collectionName}</Badge>
+        )}
+      </div>
 
       <nav className="flex items-center gap-4">
         <ul className="flex gap-4">
@@ -36,7 +43,7 @@ export default function Header() {
               <li>
                 <Avatar>
                   <AvatarImage
-                    src={`https://api.dicebear.com/9.x/thumbs/svg?seed=${pb.authStore.record?.email.slice(0, 4)}`}
+                    src={`https://api.dicebear.com/9.x/thumbs/svg?seed=${pb.authStore.record?.id.slice(0, 4)}`}
                   />
                   <AvatarFallback>
                     {pb.authStore.record?.email.slice(0, 2)}

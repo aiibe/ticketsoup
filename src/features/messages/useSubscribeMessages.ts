@@ -5,19 +5,22 @@ import { RecordSubscription } from "pocketbase";
 import { useCallback, useEffect, useState } from "react";
 
 export default function useSubscribeMessages(ticketId: string) {
+  const [loading, setLoading] = useState(true);
+
   const [messages, setMessages] = useState<MessagesRecord[]>([]);
 
   // Hydrate messages
   useEffect(() => {
     async function fetchMessages() {
-      if (!ticketId) return;
       const { data } = await getMessagesByTicketId(ticketId);
       if (data) setMessages(data);
+      setLoading(false);
     }
     fetchMessages();
   }, [ticketId]);
 
   const callback = useCallback((e: RecordSubscription<MessagesRecord>) => {
+    setLoading(true);
     if (e.action === "create") {
       setMessages((prev) => [...prev, e.record]);
     }
@@ -25,6 +28,7 @@ export default function useSubscribeMessages(ticketId: string) {
     if (e.action === "delete") {
       setMessages((prev) => prev.filter((m) => m.id !== e.record.id));
     }
+    setLoading(false);
   }, []);
 
   // Subscribe to changes
@@ -37,5 +41,6 @@ export default function useSubscribeMessages(ticketId: string) {
 
   return {
     messages,
+    loading,
   };
 }
