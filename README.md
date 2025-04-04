@@ -23,3 +23,5 @@ Otherwise, run the pocketbase service :
 ```
 
 ### Push image on ghcr.io
+
+whhat
