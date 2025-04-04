@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   pocketbase:
-    image: ghcr.io/aiibe/ticketsoup:latest
+    image: ghcr.io/aiibe/ticketsoup:0.0.1
     restart: unless-stopped
     volumes:
       - /etc/dokploy/templates/${HASH}/data:/pb_data
