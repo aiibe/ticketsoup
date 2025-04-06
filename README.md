@@ -2,20 +2,20 @@
 
 ## Development
 
-> Required a `.env` file with `SUPERUSER_EMAIL` and `SUPERUSER_PASSWORD`
+1. Create `.env` file with `SUPERUSER_EMAIL` and `SUPERUSER_PASSWORD`
 
-Download [Pocketbase](https://pocketbase.io/docs/) and place `pocketbase` executable into `pb` directory
+2. Download [Pocketbase](https://pocketbase.io/docs/) and place `pocketbase` executable into `pb` directory
 
-For first installation, execute this script to setup superuser :
+3. Create superuser account
 
 ```bash
-chmod +x setup.sh
-./setup.sh
+chmod +x dev.sh
+./dev.sh
 ```
 
-Start dev server :
+4. Start dev server :
 
 ```bash
-yarn
-yarn dev
+pnpm install
+pnpm dev
 ```

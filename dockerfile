@@ -1,36 +1,44 @@
-# Build Stage
+# --- Build Stage ---
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
 # Install dependencies
-COPY package.json yarn.lock ./
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
-RUN yarn install --frozen-lockfile
-
-# Copy the app code
+# Copy the rest of the code and build
 COPY . .
+RUN pnpm build
 
-# Build the project
-RUN yarn run build
+# --- PocketBase Download Stage ---
+FROM alpine:latest AS pb_downloader
 
-# Download and unzip PocketBase
 ARG PB_VERSION=0.26.6
-ADD https://github.com/pocketbase/pocketbase/releases/download/v${PB_VERSION}/pocketbase_${PB_VERSION}_linux_amd64.zip /tmp/pb.zip
-RUN mkdir -p /pb && unzip /tmp/pb.zip -d /pb && chmod +x /pb/pocketbase
 
-# Production Stage
-FROM scratch
+RUN apk add --no-cache unzip curl && \
+    curl -L -o /tmp/pb.zip https://github.com/pocketbase/pocketbase/releases/download/v${PB_VERSION}/pocketbase_${PB_VERSION}_linux_amd64.zip && \
+    unzip /tmp/pb.zip -d /pb && \
+    chmod +x /pb/pocketbase
+
+# --- Production Stage ---
+FROM alpine:latest
 
 WORKDIR /
 
-# Copy PocketBase and assets
-COPY --from=builder /pb/pocketbase /pocketbase
+# Copy PocketBase binary
+COPY --from=pb_downloader /pb/pocketbase /pocketbase
+
+# Copy built frontend
 COPY --from=builder /app/dist /pb_public
 
+# Copy PocketBase extras
 COPY ./pb/pb_migrations /pb_migrations
 COPY ./pb/pb_hooks /pb_hooks
 
 EXPOSE 8090
 
-CMD ["/pocketbase", "serve", "--http=0.0.0.0:8090"]
+CMD ["/bin/sh", "-c", "/pocketbase superuser upsert \"$SUPERUSER_EMAIL\" \"$SUPERUSER_PASSWORD\" && /pocketbase serve --http=0.0.0.0:8090"]

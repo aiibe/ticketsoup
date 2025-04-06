@@ -6,9 +6,9 @@ import { useParams } from "wouter";
 
 export default function DiscussionPage() {
   const { id } = useParams<{ id: string }>();
-  const auth = useAuthStore((state) => state.auth);
+  const isAuth = useAuthStore((state) => state.auth);
 
-  if (!auth?.isValid)
+  if (!isAuth)
     return (
       <div className="flex w-full items-center justify-center">
         <OtpForm

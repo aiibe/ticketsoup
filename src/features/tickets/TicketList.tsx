@@ -5,6 +5,8 @@ import { useLocation } from "wouter";
 export default function TicketList() {
   const tickets = useTicketStore((state) => state.tickets);
 
+  console.log({ tickets });
+
   const [, navigate] = useLocation();
 
   return (

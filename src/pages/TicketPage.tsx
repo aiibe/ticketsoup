@@ -6,8 +6,8 @@ import { Redirect, useParams } from "wouter";
 export default function TicketPage() {
   const { id } = useParams<{ id: string }>();
 
-  const auth = useAuthStore((state) => state.auth);
-  if (!auth?.isValid) return <Redirect to="/login" />;
+  const isAuth = useAuthStore((state) => state.auth);
+  if (!isAuth) return <Redirect to="/login" />;
 
   return (
     <Section className="bg-card">

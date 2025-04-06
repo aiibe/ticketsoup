@@ -14,8 +14,8 @@ import { useEffect } from "react";
 import DiscussionPage from "./pages/DiscussionPage";
 
 function App() {
-  useSubscribeTickets();
   useSubscribeAuth();
+  useSubscribeTickets();
 
   useEffect(() => {
     async function test() {}

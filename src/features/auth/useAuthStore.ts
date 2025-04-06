@@ -1,19 +1,18 @@
 import { pb } from "@/lib/db/pocketbase";
-import { BaseAuthStore } from "pocketbase";
 import { create } from "zustand";
 
 type AuthState = {
-  auth: BaseAuthStore | null;
-  setAuth: (auth: BaseAuthStore | null) => void;
+  auth: boolean;
+  setAuth: (auth: boolean) => void;
   clear: () => void;
 };
 
 const useAuthStore = create<AuthState>((set) => ({
-  auth: pb.authStore,
+  auth: pb.authStore.isValid,
   setAuth: (auth) => set({ auth }),
   clear: () => {
     pb.authStore.clear();
-    set({ auth: null });
+    set({ auth: false });
   },
 }));
 

@@ -6,14 +6,15 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import useAuthStore from "@/features/auth/useAuthStore";
 import Section from "@/layouts/Section";
+import { pb } from "@/lib/db/pocketbase";
 import { useState } from "react";
 import { Redirect } from "wouter";
 
 export default function Feedback() {
-  const auth = useAuthStore((state) => state.auth);
+  const isAuth = useAuthStore((state) => state.auth);
   const [submitted, setSubmitted] = useState(false);
 
-  const isAdmin = auth?.isSuperuser && auth?.isValid;
+  const isAdmin = pb.authStore?.isSuperuser && isAuth;
   if (!isAdmin) return <Redirect to="/" />;
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {

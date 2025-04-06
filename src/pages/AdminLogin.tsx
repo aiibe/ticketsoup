@@ -15,8 +15,8 @@ import useAuthStore from "@/features/auth/useAuthStore";
 export default function AdminLogin() {
   const [, navigate] = useLocation();
 
-  const auth = useAuthStore((state) => state.auth);
-  if (auth?.isValid) return <Redirect to="/" />;
+  const isAuth = useAuthStore((state) => state.auth);
+  if (isAuth) return <Redirect to="/" />;
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

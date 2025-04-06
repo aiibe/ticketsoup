@@ -2,10 +2,11 @@ import useTicketStore from "./useTicketStore";
 import MessageItem, {
   MessageProps,
 } from "@/components/conversation/MessageItem";
-import useAuthStore from "../auth/useAuthStore";
 import useSubscribeMessages from "../messages/useSubscribeMessages";
 import Chat from "@/components/conversation/Chat";
 import { sendMessage } from "@/api/messages";
+import useAuthStore from "../auth/useAuthStore";
+import { pb } from "@/lib/db/pocketbase";
 
 type Props = {
   ticketId: string;
@@ -16,24 +17,25 @@ export default function TicketView(props: Props) {
   const tickets = useTicketStore((state) => state.tickets);
   const ticket = tickets.find((t) => t.id === ticketId);
 
-  const auth = useAuthStore((state) => state.auth);
+  const isAuth = useAuthStore((state) => state.auth);
   const { messages, loading: loadingMessages } = useSubscribeMessages(ticketId);
 
   if (loadingMessages) return null;
-  if (!ticket || !auth) return null;
+  if (!ticket || !isAuth) return null;
 
   const customerEmail = ticket.expand?.customer_id?.email || "unknown";
 
   const rootTicket: MessageProps = {
-    align: ticket.customer_id === auth?.record?.id ? "end" : "start",
+    align: ticket.customer_id === pb.authStore?.record?.id ? "end" : "start",
     ...ticket,
-    sender: customerEmail === auth?.record?.email ? "You" : customerEmail,
+    sender:
+      customerEmail === pb.authStore?.record?.email ? "You" : customerEmail,
   };
 
   const conversation: MessageProps[] = messages.map((message) => {
-    const isAgent = message.agent_id === auth?.record?.id;
+    const isAgent = message.agent_id === pb.authStore?.record?.id;
     const sender = message.customer_id
-      ? customerEmail === auth?.record?.email
+      ? customerEmail === pb.authStore?.record?.email
         ? "You"
         : customerEmail
       : isAgent
@@ -41,15 +43,15 @@ export default function TicketView(props: Props) {
         : "Other Agent";
 
     return {
-      align: message.agent_id === auth?.record?.id ? "end" : "start",
+      align: message.agent_id === pb.authStore?.record?.id ? "end" : "start",
       ...message,
       sender,
     };
   });
 
   async function handleSubmit(formData: { message: string }) {
-    if (ticket && auth?.record) {
-      const { id, collectionName } = auth.record;
+    if (ticket && pb.authStore?.record) {
+      const { id, collectionName } = pb.authStore.record;
       const isCustomer = collectionName === "customers";
 
       await sendMessage({
@@ -76,7 +78,7 @@ export default function TicketView(props: Props) {
         <Chat
           messages={conversation}
           onSubmit={handleSubmit}
-          disabledSend={auth?.isSuperuser}
+          disabledSend={pb.authStore?.isSuperuser}
         />
       </div>
     </div>

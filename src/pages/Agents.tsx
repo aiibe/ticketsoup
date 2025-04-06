@@ -1,11 +1,12 @@
 import useAuthStore from "@/features/auth/useAuthStore";
 import Section from "@/layouts/Section";
+import { pb } from "@/lib/db/pocketbase";
 import { Redirect } from "wouter";
 
 export default function Agents() {
-  const auth = useAuthStore((state) => state.auth);
+  const isAuth = useAuthStore((state) => state.auth);
 
-  const isAdmin = auth?.isSuperuser && auth?.isValid;
+  const isAdmin = pb.authStore?.isSuperuser && isAuth;
   if (!isAdmin) return <Redirect to="/" />;
 
   return (

@@ -1,10 +1,11 @@
+import { pb } from "@/lib/db/pocketbase";
+import useAuthStore from "../auth/useAuthStore";
 import TicketLink from "./TicketLink";
 import { Link } from "wouter";
-import useAuthStore from "../auth/useAuthStore";
 
 export default function SidebarList() {
-  const auth = useAuthStore((state) => state.auth);
-  const isSuperUser = auth?.isSuperuser && auth?.isValid;
+  const isAuth = useAuthStore((state) => state.auth);
+  const isSuperUser = pb.authStore?.isSuperuser && isAuth;
 
   return (
     <ul className="p-2">

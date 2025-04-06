@@ -8,8 +8,7 @@ import { Link, useLocation } from "wouter";
 export default function Header() {
   const [, navigate] = useLocation();
   const clearAuth = useAuthStore((state) => state.clear);
-  const auth = useAuthStore((state) => state.auth);
-  const isLoggedIn = auth?.isValid;
+  const isAuth = useAuthStore((state) => state.auth);
 
   function logOut() {
     clearAuth();
@@ -23,14 +22,16 @@ export default function Header() {
           <img src="/ticketsoup.svg" alt="TicketSoup" />
         </Link>
 
-        {isLoggedIn && (
-          <Badge variant="outline">{auth?.record?.collectionName}</Badge>
+        {isAuth && (
+          <Badge variant="outline">
+            {pb.authStore?.record?.collectionName}
+          </Badge>
         )}
       </div>
 
       <nav className="flex items-center gap-4">
         <ul className="flex gap-4">
-          {isLoggedIn && (
+          {isAuth && (
             <>
               {/* Logout */}
               <li>

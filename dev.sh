@@ -13,4 +13,4 @@ else
 fi
 
 # Create superuser
-./pb/pocketbase superuser create "$SUPERUSER_EMAIL" "$SUPERUSER_PASSWORD"
+./pb/pocketbase superuser upsert "$SUPERUSER_EMAIL" "$SUPERUSER_PASSWORD"

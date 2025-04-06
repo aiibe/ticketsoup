@@ -3,20 +3,28 @@ import { RecordSubscription } from "pocketbase";
 import { useCallback, useEffect } from "react";
 import useTicketStore from "./useTicketStore";
 import { getAllTickets, TicketExpand } from "@/api/tickets";
+import useAuthStore from "../auth/useAuthStore";
 
 export default function useSubscribeTickets() {
   const setTickets = useTicketStore((state) => state.setTickets);
   const addTicket = useTicketStore((state) => state.addTicket);
   const removeTicket = useTicketStore((state) => state.removeTicket);
+  const isAuth = useAuthStore((state) => state.auth);
 
   // Hydrate
   useEffect(() => {
     async function fetchTickets() {
       const { data } = await getAllTickets();
-      if (data) setTickets(data);
+      if (data) {
+        console.log(data);
+        setTickets(data);
+      }
     }
-    fetchTickets();
-  }, [setTickets]);
+
+    if (isAuth) {
+      fetchTickets();
+    }
+  }, [isAuth, setTickets]);
 
   const callback = useCallback(
     (e: RecordSubscription<TicketExpand>) => {

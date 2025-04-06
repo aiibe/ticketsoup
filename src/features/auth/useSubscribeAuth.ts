@@ -1,6 +1,6 @@
-import useAuthStore from "@/features/auth/useAuthStore";
 import { pb } from "@/lib/db/pocketbase";
 import { useEffect } from "react";
+import useAuthStore from "./useAuthStore";
 
 export default function useSubscribeAuth() {
   const setAuth = useAuthStore((state) => state.setAuth);
@@ -8,7 +8,7 @@ export default function useSubscribeAuth() {
   useEffect(() => {
     pb.authStore.onChange(() => {
       if (pb.authStore.isValid) {
-        setAuth(pb.authStore);
+        setAuth(true);
       }
     });
   }, [setAuth]);
