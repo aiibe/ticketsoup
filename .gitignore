@@ -24,9 +24,8 @@ dist-ssr
 *.sw?
 
 # PocketBase
-pb
 pb_data
-pocketbase_bin
+pocketbase
 
 # Environment variables
 .env

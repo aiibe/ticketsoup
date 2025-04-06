@@ -2,22 +2,20 @@
 
 ## Development
 
-```bash
-yarn
-yarn dev
-```
+> Required a `.env` file with `SUPERUSER_EMAIL` and `SUPERUSER_PASSWORD`
 
-Download and copy/paste `pocketbase` executable at root. Rename it to `pocketbase_bin`
+Download [Pocketbase](https://pocketbase.io/docs/) and place `pocketbase` executable into `pb` directory
 
-For first installation, run the following commands :
+For first installation, execute this script to setup superuser :
 
 ```bash
 chmod +x setup.sh
 ./setup.sh
 ```
 
-Otherwise, run the pocketbase service :
+Start dev server :
 
 ```bash
-./pocketbase_bin serve
+yarn
+yarn dev
 ```

@@ -1,21 +1,22 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Redirect, useLocation } from "wouter";
+import { Link, Redirect, useLocation } from "wouter";
 import { pb } from "@/lib/db/pocketbase";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import useAuthStore from "@/features/auth/useAuthStore";
 
-export default function Login() {
+export default function AdminLogin() {
   const [, navigate] = useLocation();
 
-  if (pb.authStore.isValid) {
-    return <Redirect to="/" />;
-  }
+  const auth = useAuthStore((state) => state.auth);
+  if (auth?.isValid) return <Redirect to="/" />;
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -32,11 +33,17 @@ export default function Login() {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex w-full items-center justify-center">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardTitle className="text-2xl">Admin Login</CardTitle>
+          <CardDescription>
+            <Link className="underline" to="/login">
+              Or sign in as agent
+            </Link>
+          </CardDescription>
         </CardHeader>
+
         <CardContent className="grid gap-4">
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="grid gap-2">

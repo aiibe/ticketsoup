@@ -13,9 +13,4 @@ else
 fi
 
 # Create superuser
-./pocketbase_bin superuser create "$SUPERUSER_EMAIL" "$SUPERUSER_PASSWORD"
-
-# TODO Run migrations
-
-# Run pocketbase service
-./pocketbase_bin serve
+./pb/pocketbase superuser create "$SUPERUSER_EMAIL" "$SUPERUSER_PASSWORD"

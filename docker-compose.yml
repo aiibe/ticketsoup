@@ -1,0 +1,4 @@
+services:
+  ticketsoup:
+    image: ghcr.io/aiibe/ticketsoup:0.0.1
+    restart: unless-stopped
