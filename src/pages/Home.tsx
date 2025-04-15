@@ -9,7 +9,6 @@ export default function Home() {
 
   return (
     <Section className="bg-background p-2">
-      <h1 className="">Home</h1>
       <TicketList />
     </Section>
   );

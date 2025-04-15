@@ -7,5 +7,5 @@ export default function Sidebar(props: PropsWithChildren) {
 
   if (!isAuth) return null;
 
-  return <aside className="bg-muted w-50 shrink-0 border-r">{children}</aside>;
+  return <aside className="w-50 shrink-0 border-r">{children}</aside>;
 }

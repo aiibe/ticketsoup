@@ -23,21 +23,20 @@ export default function TicketView(props: Props) {
   if (loadingMessages) return null;
   if (!ticket || !isAuth) return null;
 
-  const customerEmail = ticket.expand?.customer_id?.email || "unknown";
+  const customerName = ticket.expand?.customer_id?.fullName || "unknown";
 
   const rootTicket: MessageProps = {
     align: ticket.customer_id === pb.authStore?.record?.id ? "end" : "start",
     ...ticket,
-    sender:
-      customerEmail === pb.authStore?.record?.email ? "You" : customerEmail,
+    sender: customerName === pb.authStore?.record?.email ? "You" : customerName,
   };
 
   const conversation: MessageProps[] = messages.map((message) => {
     const isAgent = message.agent_id === pb.authStore?.record?.id;
     const sender = message.customer_id
-      ? customerEmail === pb.authStore?.record?.email
+      ? customerName === pb.authStore?.record?.email
         ? "You"
-        : customerEmail
+        : customerName
       : isAgent
         ? "You"
         : "Other Agent";

@@ -19,7 +19,7 @@ export default function Header() {
     <header className="flex h-[48px] items-center justify-between border-b bg-white p-2">
       <div className="flex items-center gap-2">
         <Link to="/">
-          <img src="/ticketsoup.svg" alt="TicketSoup" />
+          <img src="/ticketsoup.svg" alt="TicketSoup" className="h-8 w-8" />
         </Link>
 
         {isAuth && (

@@ -30,6 +30,7 @@ export async function getAllTickets(): Promise<{
 }
 
 export async function createFeedback(payload: {
+  fullName: string;
   email: string;
   message: string;
 }): Promise<{
@@ -44,6 +45,7 @@ export async function createFeedback(payload: {
     if (!customer) {
       const password = nanoid(15);
       customer = await pb.collection("customers").create({
+        fullName: payload.fullName,
         password: password,
         passwordConfirm: password,
         email: payload.email,

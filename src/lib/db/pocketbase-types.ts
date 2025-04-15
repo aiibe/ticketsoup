@@ -11,6 +11,7 @@ export enum Collections {
 	Mfas = "_mfas",
 	Otps = "_otps",
 	Superusers = "_superusers",
+	Activities = "activities",
 	Agents = "agents",
 	Customers = "customers",
 	Messages = "messages",
@@ -88,6 +89,19 @@ export type SuperusersRecord = {
 	verified?: boolean
 }
 
+export enum ActivitiesActionOptions {
+	"create_message" = "create_message",
+	"update_message" = "update_message",
+	"delete_message" = "delete_message",
+}
+export type ActivitiesRecord = {
+	action?: ActivitiesActionOptions
+	agent_id?: RecordIdString
+	created?: IsoDateString
+	customer_id?: RecordIdString
+	id: string
+}
+
 export type AgentsRecord = {
 	created?: IsoDateString
 	email: string
@@ -103,6 +117,7 @@ export type CustomersRecord = {
 	created?: IsoDateString
 	email: string
 	emailVisibility?: boolean
+	fullName: string
 	id: string
 	password: string
 	tokenKey: string
@@ -114,6 +129,7 @@ export type MessagesRecord = {
 	agent_id?: RecordIdString
 	created?: IsoDateString
 	customer_id?: RecordIdString
+	deleted?: boolean
 	id: string
 	message: string
 	ticket_id: RecordIdString
@@ -135,6 +151,7 @@ export type ExternalauthsResponse<Texpand = unknown> = Required<ExternalauthsRec
 export type MfasResponse<Texpand = unknown> = Required<MfasRecord> & BaseSystemFields<Texpand>
 export type OtpsResponse<Texpand = unknown> = Required<OtpsRecord> & BaseSystemFields<Texpand>
 export type SuperusersResponse<Texpand = unknown> = Required<SuperusersRecord> & AuthSystemFields<Texpand>
+export type ActivitiesResponse<Texpand = unknown> = Required<ActivitiesRecord> & BaseSystemFields<Texpand>
 export type AgentsResponse<Texpand = unknown> = Required<AgentsRecord> & AuthSystemFields<Texpand>
 export type CustomersResponse<Texpand = unknown> = Required<CustomersRecord> & AuthSystemFields<Texpand>
 export type MessagesResponse<Texpand = unknown> = Required<MessagesRecord> & BaseSystemFields<Texpand>
@@ -148,6 +165,7 @@ export type CollectionRecords = {
 	_mfas: MfasRecord
 	_otps: OtpsRecord
 	_superusers: SuperusersRecord
+	activities: ActivitiesRecord
 	agents: AgentsRecord
 	customers: CustomersRecord
 	messages: MessagesRecord
@@ -160,6 +178,7 @@ export type CollectionResponses = {
 	_mfas: MfasResponse
 	_otps: OtpsResponse
 	_superusers: SuperusersResponse
+	activities: ActivitiesResponse
 	agents: AgentsResponse
 	customers: CustomersResponse
 	messages: MessagesResponse
@@ -175,6 +194,7 @@ export type TypedPocketBase = PocketBase & {
 	collection(idOrName: '_mfas'): RecordService<MfasResponse>
 	collection(idOrName: '_otps'): RecordService<OtpsResponse>
 	collection(idOrName: '_superusers'): RecordService<SuperusersResponse>
+	collection(idOrName: 'activities'): RecordService<ActivitiesResponse>
 	collection(idOrName: 'agents'): RecordService<AgentsResponse>
 	collection(idOrName: 'customers'): RecordService<CustomersResponse>
 	collection(idOrName: 'messages'): RecordService<MessagesResponse>

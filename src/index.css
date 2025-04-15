@@ -4,17 +4,17 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: hsl(0 0% 97.65%);
+  --background: hsl(0, 0%, 100%);
   --foreground: hsl(0 0% 12.55%);
   --muted: hsl(0 0% 96%);
   --muted-foreground: hsl(0 0% 67.31%);
   --popover: hsl(0 0% 100%);
   --popover-foreground: hsl(0 0% 12.55%);
-  --card: hsl(0 0% 98.82%);
+  --card: hsl(0, 0%, 100%);
   --card-foreground: hsl(0 0% 12.55%);
   --border: hsl(0 0% 84.71%);
   --input: hsl(0 0% 82.69%);
-  --primary: hsl(22.93 99.14% 55.27%);
+  --primary: hsl(23, 99%, 55%);
   --primary-foreground: hsl(44 0% 100%);
   --secondary: hsl(34.05 100% 85.49%);
   --secondary-foreground: hsl(16.27 59.44% 17.13%);

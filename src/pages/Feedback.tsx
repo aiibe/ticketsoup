@@ -20,10 +20,11 @@ export default function Feedback() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
+    const fullName = form.fullName.value;
     const email = form.email.value;
     const message = form.message.value;
 
-    const { error, data } = await createFeedback({ email, message });
+    const { error, data } = await createFeedback({ fullName, email, message });
     if (error) console.log(error);
     if (data) {
       console.log(data);
@@ -49,6 +50,17 @@ export default function Feedback() {
 
           <CardContent className="grid gap-4">
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="email">Full Name</Label>
+                <Input
+                  id="fullName"
+                  type="text"
+                  name="fullName"
+                  placeholder="John Doe"
+                  required
+                />
+              </div>
+
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input

@@ -5,8 +5,6 @@ import { useLocation } from "wouter";
 export default function TicketList() {
   const tickets = useTicketStore((state) => state.tickets);
 
-  console.log({ tickets });
-
   const [, navigate] = useLocation();
 
   return (
@@ -20,7 +18,7 @@ export default function TicketList() {
           <CardContent className="p-0">
             <div className="whitespace-pre-wrap">{ticket.message}</div>
             <div className="text-muted-foreground flex gap-2 text-xs">
-              <span>{ticket.expand?.customer_id?.email || ""}</span>
+              <span>{ticket.expand?.customer_id?.fullName || ""}</span>
               <span>{ticket.created}</span>
             </div>
           </CardContent>
