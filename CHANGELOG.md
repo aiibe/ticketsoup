@@ -1,3 +1,9 @@
+## 0.0.9
+
+### Fixes
+
+- Close dialog after submitting ticket
+
 ## 0.0.8
 
 ### Features

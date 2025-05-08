@@ -18,6 +18,7 @@ export default function CreateTicketButtonDialog() {
   const customerFullName = pb.authStore?.record?.fullName;
   const customerEmail = pb.authStore?.record?.email;
 
+  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<{ message?: string } | null>(null);
 
@@ -43,12 +44,13 @@ export default function CreateTicketButtonDialog() {
       }
     }
     setLoading(false);
+    setOpen(false);
   }
 
   if (!customerFullName || !customerEmail) return null;
 
   return (
-    <Dialog open>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button size="sm">Create Ticket</Button>
       </DialogTrigger>
