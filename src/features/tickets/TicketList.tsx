@@ -4,9 +4,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { pb } from "@/lib/db/pocketbase";
 import { useCheckRole } from "../auth/useCheckRole";
-import { Button } from "@/components/ui/button";
 import { TicketStatus } from "./ticket.types";
 import { useFilterTickets } from "./useFilterTickets";
+import CreateTicketButtonDialog from "./CreateTicketButtonDialog";
 
 type Props = {
   status?: TicketStatus;
@@ -33,9 +33,7 @@ export default function TicketList(props: Props) {
       <div className="text-muted-foreground m-10 flex flex-col items-center gap-4 text-center">
         <p>No soup to serve for now</p>
         <p className="text-sm italic">There are no tickets yet</p>
-        {isCustomer && status === "open" && (
-          <Button size="sm">Create Ticket</Button>
-        )}
+        {isCustomer && status === "open" && <CreateTicketButtonDialog />}
       </div>
     );
   }

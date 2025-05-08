@@ -16,7 +16,7 @@ const useTicketStore = create<TicketState>((set) => ({
   ...initState,
   setTickets: (tickets) => set({ tickets }),
   addTicket: (ticket) =>
-    set((state) => ({ tickets: [...state.tickets, ticket] })),
+    set((state) => ({ tickets: [ticket, ...state.tickets] })),
   removeTicket: (id) =>
     set((state) => ({ tickets: state.tickets.filter((t) => t.id !== id) })),
 }));

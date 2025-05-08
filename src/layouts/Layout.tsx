@@ -1,4 +1,5 @@
 import { PropsWithChildren } from "react";
+import { Toaster } from "@/components/ui/sonner";
 import Header from "./Header";
 
 export default function Layout(props: PropsWithChildren) {
@@ -8,6 +9,7 @@ export default function Layout(props: PropsWithChildren) {
     <>
       <Header />
       <main className="flex flex-1">{children}</main>
+      <Toaster />
     </>
   );
 }

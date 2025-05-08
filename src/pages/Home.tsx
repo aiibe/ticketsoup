@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
 import { Tabs } from "@/components/ui/tabs";
 import useAuthStore from "@/features/auth/useAuthStore";
 import { useCheckRole } from "@/features/auth/useCheckRole";
+import CreateTicketButtonDialog from "@/features/tickets/CreateTicketButtonDialog";
 import { ClosedTickets } from "@/features/tickets/tabs/content/ClosedTickets";
 import { InProgressTickets } from "@/features/tickets/tabs/content/InProgressTickets";
 import { OpenTickets } from "@/features/tickets/tabs/content/OpenTickets";
@@ -20,7 +20,7 @@ export default function Home() {
         <div className="mb-4">
           <div className="flex justify-between">
             <h1 className="mb-4 text-2xl font-bold">Tickets</h1>
-            {isCustomer && <Button size="sm">Create Ticket</Button>}
+            {isCustomer && <CreateTicketButtonDialog />}
           </div>
 
           <Tabs defaultValue="open" className="w-full">
