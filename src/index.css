@@ -5,13 +5,13 @@
 
 :root {
   --background: hsl(0, 0%, 100%);
-  --foreground: hsl(0 0% 12.55%);
+  --foreground: hsl(16.27 59.44% 17.13%);
   --muted: hsl(0 0% 96%);
   --muted-foreground: hsl(0 0% 67.31%);
   --popover: hsl(0 0% 100%);
-  --popover-foreground: hsl(0 0% 12.55%);
+  --popover-foreground: hsl(16.27 59.44% 17.13%);
   --card: hsl(0, 0%, 100%);
-  --card-foreground: hsl(0 0% 12.55%);
+  --card-foreground: hsl(16.27 59.44% 17.13%);
   --border: hsl(0 0% 84.71%);
   --input: hsl(0 0% 82.69%);
   --primary: hsl(23, 99%, 55%);
@@ -19,7 +19,7 @@
   --secondary: hsl(34.05 100% 85.49%);
   --secondary-foreground: hsl(16.27 59.44% 17.13%);
   --accent: hsl(0 0% 91.15%);
-  --accent-foreground: hsl(0 0% 12.55%);
+  --accent-foreground: hsl(16.27 59.44% 17.13%);
   --destructive: hsl(0 72.73% 46.54%);
   --destructive-foreground: hsl(0 0% 100%);
   --ring: hsl(24.8 79.79% 63.14%);
@@ -113,5 +113,9 @@
 
   #root {
     @apply flex h-screen flex-col;
+  }
+
+  button {
+    @apply cursor-pointer;
   }
 }

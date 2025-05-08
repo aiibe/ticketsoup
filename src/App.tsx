@@ -7,7 +7,6 @@ import TicketPage from "./pages/TicketPage";
 import Agents from "./pages/Agents";
 import Feedback from "./pages/Feedback";
 import useSubscribeTickets from "./features/tickets/useSubscribeTickets";
-import SidebarList from "./features/sidebar/SidebarList";
 import useSubscribeAuth from "./features/auth/useSubscribeAuth";
 import { useEffect } from "react";
 import DiscussionPage from "./pages/DiscussionPage";
@@ -22,10 +21,9 @@ function App() {
   }, []);
 
   return (
-    <Layout List={<SidebarList />}>
+    <Layout>
       <Switch>
         <Route path="/feedback" component={Feedback} />
-
         <Route path="/discussion/:id" component={DiscussionPage} />
         <Route path="/ticket/:id" component={TicketPage} />
         <Route path="/_admin/agents" component={Agents} />

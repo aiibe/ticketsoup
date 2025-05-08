@@ -7,6 +7,9 @@ import Chat from "@/components/conversation/Chat";
 import { sendMessage } from "@/api/messages";
 import useAuthStore from "../auth/useAuthStore";
 import { pb } from "@/lib/db/pocketbase";
+import { ChevronLeft } from "lucide-react";
+import { useLocation } from "wouter";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   ticketId: string;
@@ -14,10 +17,13 @@ type Props = {
 
 export default function TicketView(props: Props) {
   const { ticketId } = props;
+  const [, navigate] = useLocation();
+
   const tickets = useTicketStore((state) => state.tickets);
   const ticket = tickets.find((t) => t.id === ticketId);
 
   const isAuth = useAuthStore((state) => state.auth);
+
   const { messages, loading: loadingMessages } = useSubscribeMessages(ticketId);
 
   if (loadingMessages) return null;
@@ -28,21 +34,25 @@ export default function TicketView(props: Props) {
   const rootTicket: MessageProps = {
     align: ticket.customer_id === pb.authStore?.record?.id ? "end" : "start",
     ...ticket,
-    sender: customerName === pb.authStore?.record?.email ? "You" : customerName,
+    sender:
+      customerName === pb.authStore?.record?.fullName ? "You" : customerName,
   };
 
   const conversation: MessageProps[] = messages.map((message) => {
     const isAgent = message.agent_id === pb.authStore?.record?.id;
-    const sender = message.customer_id
-      ? customerName === pb.authStore?.record?.email
-        ? "You"
-        : customerName
-      : isAgent
-        ? "You"
-        : "Other Agent";
+    let sender = customerName;
+
+    if (message.customer_id === pb.authStore?.record?.id) {
+      sender = "You";
+    }
+
+    if (!message.customer_id) {
+      // TODO Replace 'Other Agent' with agent name
+      sender = isAgent ? "You" : "Support Team";
+    }
 
     return {
-      align: message.agent_id === pb.authStore?.record?.id ? "end" : "start",
+      align: isAgent || sender === "You" ? "end" : "start",
       ...message,
       sender,
     };
@@ -64,14 +74,22 @@ export default function TicketView(props: Props) {
 
   return (
     <div className="relative flex flex-col gap-4">
-      <div className="bg-card top-0 right-0 left-0 z-10 p-2 text-center">
-        <h1 className="text-center">Ticket {ticket.id}</h1>
-        <span className="text-muted-foreground text-xs">
-          Issued {new Date(ticket.created as string).toLocaleString()}
-        </span>
+      <div className="top-0 right-0 left-0 z-10">
+        <div>
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")}>
+            <ChevronLeft /> Back
+          </Button>
+
+          <div className="p-2 text-center">
+            <h1 className="text-center">Ticket {ticket.id}</h1>
+            <span className="text-muted-foreground text-xs">
+              Issued {new Date(ticket.created as string).toLocaleString()}
+            </span>
+          </div>
+        </div>
       </div>
 
-      <div className="mx-auto flex max-w-3xl flex-col gap-4">
+      <div className="flex flex-col gap-4">
         <MessageItem {...rootTicket} className="w-full" />
 
         <Chat

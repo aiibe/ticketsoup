@@ -39,9 +39,9 @@ export default function Chat(props: Props) {
     <div className={cn("relative flex flex-col", className)}>
       <MessageList messages={messages} />
 
-      <div className="bg-card/50 sticky bottom-0 rounded-xl px-16 py-4 backdrop-blur-md">
+      <div className="bg-card/50 sticky bottom-0 rounded-xl py-4 backdrop-blur-md">
         <MessageInput
-          className="min-w-xl"
+          className=""
           onSubmit={handleSubmit}
           disabled={disabledSend}
         />

@@ -1,26 +1,13 @@
-import { PropsWithChildren, ReactNode } from "react";
+import { PropsWithChildren } from "react";
 import Header from "./Header";
-import Footer from "./Footer";
-import Sidebar from "./Sidebar";
 
-type Props = {
-  List: ReactNode;
-};
-
-export default function Layout(props: PropsWithChildren<Props>) {
-  const { children, List } = props;
+export default function Layout(props: PropsWithChildren) {
+  const { children } = props;
 
   return (
     <>
       <Header />
-
-      <main className="flex flex-1">
-        <Sidebar>{List}</Sidebar>
-
-        {children}
-      </main>
-
-      <Footer />
+      <main className="flex flex-1">{children}</main>
     </>
   );
 }

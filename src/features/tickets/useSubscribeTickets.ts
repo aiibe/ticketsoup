@@ -16,7 +16,6 @@ export default function useSubscribeTickets() {
     async function fetchTickets() {
       const { data } = await getAllTickets();
       if (data) {
-        console.log(data);
         setTickets(data);
       }
     }

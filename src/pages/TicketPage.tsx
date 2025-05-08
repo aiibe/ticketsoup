@@ -1,6 +1,5 @@
 import useAuthStore from "@/features/auth/useAuthStore";
 import TicketView from "@/features/tickets/TicketView";
-import Section from "@/layouts/Section";
 import { Redirect, useParams } from "wouter";
 
 export default function TicketPage() {
@@ -10,8 +9,10 @@ export default function TicketPage() {
   if (!isAuth) return <Redirect to="/login" />;
 
   return (
-    <Section className="bg-card">
-      <TicketView ticketId={id} />
-    </Section>
+    <section className="grid w-full grid-cols-12 gap-2">
+      <div className="col-span-10 col-start-2 py-4 md:col-span-6 md:col-start-4">
+        <TicketView ticketId={id} />
+      </div>
+    </section>
   );
 }

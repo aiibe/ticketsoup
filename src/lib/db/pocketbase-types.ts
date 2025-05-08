@@ -138,10 +138,12 @@ export type MessagesRecord = {
 
 export type TicketsRecord = {
 	assigned_to?: RecordIdString
+	closed?: boolean
 	created?: IsoDateString
 	customer_id?: RecordIdString
 	id: string
 	message: string
+	reference: string
 	updated?: IsoDateString
 }
 

@@ -25,7 +25,7 @@ export default function MessageItem(props: MessageProps) {
     <div className={cn("flex flex-col gap-1", alignItems, className)}>
       <Card
         className={cn(
-          "max-w-[80%] min-w-[180px] rounded-t-xl border-none px-3 py-2 whitespace-pre-wrap",
+          "max-w-[80%] min-w-[180px] rounded-t-xl border-none px-3 py-2 whitespace-pre-wrap hover:shadow-none",
           background,
           corner,
         )}

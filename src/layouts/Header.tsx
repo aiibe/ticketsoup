@@ -9,6 +9,7 @@ export default function Header() {
   const [, navigate] = useLocation();
   const clearAuth = useAuthStore((state) => state.clear);
   const isAuth = useAuthStore((state) => state.auth);
+  const isSuperUser = pb.authStore?.isSuperuser;
 
   function logOut() {
     clearAuth();
@@ -16,45 +17,47 @@ export default function Header() {
   }
 
   return (
-    <header className="flex h-[48px] items-center justify-between border-b bg-white p-2">
-      <div className="flex items-center gap-2">
-        <Link to="/">
-          <img src="/ticketsoup.svg" alt="TicketSoup" className="h-8 w-8" />
-        </Link>
+    <header className="grid h-[48px] grid-cols-12 items-center justify-between p-2">
+      <div className="col-span-12 grid grid-cols-2 md:col-span-6 md:col-start-4">
+        <div className="flex items-center gap-2">
+          <Link to="/">
+            <img src="/ticketsoup.svg" alt="TicketSoup" className="h-8 w-8" />
+          </Link>
 
-        {isAuth && (
-          <Badge variant="outline">
-            {pb.authStore?.record?.collectionName}
-          </Badge>
-        )}
-      </div>
-
-      <nav className="flex items-center gap-4">
-        <ul className="flex gap-4">
           {isAuth && (
-            <>
-              {/* Logout */}
-              <li>
-                <Button size="sm" variant="secondary" onClick={logOut}>
-                  Logout
-                </Button>
-              </li>
-
-              {/* Avatar */}
-              <li>
-                <Avatar>
-                  <AvatarImage
-                    src={`https://api.dicebear.com/9.x/thumbs/svg?seed=${pb.authStore.record?.id.slice(0, 4)}`}
-                  />
-                  <AvatarFallback>
-                    {pb.authStore.record?.email.slice(0, 2)}
-                  </AvatarFallback>
-                </Avatar>
-              </li>
-            </>
+            <Badge variant="outline">
+              {pb.authStore?.record?.collectionName}
+            </Badge>
           )}
-        </ul>
-      </nav>
+        </div>
+
+        <nav className="flex items-center justify-end gap-4">
+          <ul className="flex gap-4">
+            {isAuth && (
+              <>
+                {/* Logout */}
+                <li>
+                  <Button size="sm" variant="secondary" onClick={logOut}>
+                    Logout
+                  </Button>
+                </li>
+
+                {/* Avatar */}
+                <li>
+                  <Avatar>
+                    <AvatarImage
+                      src={`https://api.dicebear.com/9.x/identicon/svg?seed=${(isSuperUser ? pb.authStore.record?.id || "" : pb.authStore.record?.fullName || "").slice(0, 4)}`}
+                    />
+                    <AvatarFallback>
+                      {pb.authStore.record?.email.slice(0, 2)}
+                    </AvatarFallback>
+                  </Avatar>
+                </li>
+              </>
+            )}
+          </ul>
+        </nav>
+      </div>
     </header>
   );
 }

@@ -43,7 +43,7 @@ export default function MessageInput(props: Props) {
           name="message"
           autoFocus
           className="z-20 min-h-8 resize-none rounded-xl bg-white"
-          placeholder="Type a message"
+          placeholder="Reply..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
