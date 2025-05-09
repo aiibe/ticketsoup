@@ -1,6 +1,6 @@
 services:
   ticketsoup:
-    image: ghcr.io/aiibe/ticketsoup:0.0.9
+    image: ghcr.io/aiibe/ticketsoup:0.1.0
     restart: unless-stopped
     ports:
       - 8090:8090

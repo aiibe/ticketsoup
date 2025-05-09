@@ -57,7 +57,7 @@ export async function createFeedback(payload: {
     // Create new ticket
     const ticket = await pb.collection<TicketExpand>("tickets").create({
       customer_id: (customer as CustomersRecord).id,
-      message: payload.message,
+      message: payload.message.trim(),
     });
     return {
       error: null,

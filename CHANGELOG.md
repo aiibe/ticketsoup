@@ -1,3 +1,9 @@
+## 0.1.0
+
+### Features
+
+- Notify customer and agents by email when ticket is submitted
+
 ## 0.0.9
 
 ### Fixes
