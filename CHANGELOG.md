@@ -1,4 +1,8 @@
-## 0.1.1
+## 0.2.0
+
+### Features
+
+- Add banner to remind admin to configure SMTP
 
 ### Fixes
 
