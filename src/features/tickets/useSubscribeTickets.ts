@@ -40,11 +40,14 @@ export default function useSubscribeTickets() {
 
   // Subscribe to changes
   useEffect(() => {
+    if (!isAuth) return;
+
     pb.collection("tickets").subscribe("*", callback, {
       expand: "customer_id",
     });
+
     return () => {
       pb.collection("tickets").unsubscribe();
     };
-  }, [callback]);
+  }, [callback, isAuth]);
 }

@@ -1,3 +1,9 @@
+## 0.1.1
+
+### Fixes
+
+- Fix ticket subscription
+
 ## 0.1.0
 
 ### Features
