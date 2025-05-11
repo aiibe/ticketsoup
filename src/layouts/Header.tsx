@@ -1,6 +1,7 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import UserAvatar from "@/components/UserAvatar";
 import useAuthStore from "@/features/auth/useAuthStore";
 import { pb } from "@/lib/db/pocketbase";
 import { Link, useLocation } from "wouter";
@@ -44,14 +45,18 @@ export default function Header() {
 
                 {/* Avatar */}
                 <li>
-                  <Avatar>
-                    <AvatarImage
-                      src={`https://api.dicebear.com/9.x/identicon/svg?seed=${(isSuperUser ? pb.authStore.record?.id || "" : pb.authStore.record?.fullName || "").slice(0, 4)}`}
-                    />
-                    <AvatarFallback>
-                      {pb.authStore.record?.email.slice(0, 2)}
-                    </AvatarFallback>
-                  </Avatar>
+                  <UserAvatar
+                    name={
+                      isSuperUser
+                        ? pb.authStore.record?.id || ""
+                        : pb.authStore.record?.fullName || ""
+                    }
+                    fallback={
+                      <AvatarFallback>
+                        {pb.authStore.record?.email.slice(0, 2)}
+                      </AvatarFallback>
+                    }
+                  />
                 </li>
               </>
             )}

@@ -70,3 +70,21 @@ export async function createFeedback(payload: {
     };
   }
 }
+
+// Assign agent to ticket
+export async function assignAgent(ticketId: string, agentId: string) {
+  try {
+    const resp = await pb.collection("tickets").update(ticketId, {
+      assigned_to: agentId,
+    });
+    return {
+      error: null,
+      data: resp,
+    };
+  } catch (error) {
+    return {
+      error: (error as ClientResponseError).data,
+      data: null,
+    };
+  }
+}

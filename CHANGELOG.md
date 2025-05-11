@@ -1,3 +1,15 @@
+## 0.3.0
+
+### Features
+
+- Agent can assign ticket to other agent
+- Agent will receive email when ticket is assigned
+
+### Fixes
+
+- Avatar seed based on user full name
+- Tickets subscription missing update event
+
 ## 0.2.0
 
 ### Features

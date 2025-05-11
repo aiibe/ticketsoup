@@ -8,6 +8,7 @@ import useAuthStore from "../auth/useAuthStore";
 export default function useSubscribeTickets() {
   const setTickets = useTicketStore((state) => state.setTickets);
   const addTicket = useTicketStore((state) => state.addTicket);
+  const updateTicket = useTicketStore((state) => state.updateTicket);
   const removeTicket = useTicketStore((state) => state.removeTicket);
   const isAuth = useAuthStore((state) => state.auth);
 
@@ -34,8 +35,12 @@ export default function useSubscribeTickets() {
       if (e.action === "delete") {
         removeTicket(e.record.id);
       }
+
+      if (e.action === "update") {
+        updateTicket(e.record);
+      }
     },
-    [addTicket, removeTicket],
+    [addTicket, removeTicket, updateTicket],
   );
 
   // Subscribe to changes

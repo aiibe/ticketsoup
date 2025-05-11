@@ -76,7 +76,7 @@ export default function TicketView(props: Props) {
     <div className="relative flex flex-col gap-4">
       <div className="top-0 right-0 left-0 z-10">
         <div>
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")}>
+          <Button size="sm" variant="ghost" onClick={() => navigate("/")}>
             <ChevronLeft /> Back
           </Button>
 

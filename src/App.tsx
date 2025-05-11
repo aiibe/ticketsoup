@@ -10,10 +10,12 @@ import useSubscribeTickets from "./features/tickets/useSubscribeTickets";
 import useSubscribeAuth from "./features/auth/useSubscribeAuth";
 import { useEffect } from "react";
 import DiscussionPage from "./pages/DiscussionPage";
+import useSubscribeAgents from "./features/agents/useSubscribeAgents";
 
 function App() {
   useSubscribeAuth();
   useSubscribeTickets();
+  useSubscribeAgents();
 
   useEffect(() => {
     async function test() {}

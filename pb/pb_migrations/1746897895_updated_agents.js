@@ -1,16 +1,6 @@
 /// <reference path="../pb_data/types.d.ts" />
 migrate((app) => {
-  const collection = app.findCollectionByNameOrId("pbc_1751747783");
-
-  // update collection data
-  unmarshal(
-    {
-      passwordAuth: {
-        enabled: true,
-      },
-    },
-    collection,
-  );
+  const collection = app.findCollectionByNameOrId("pbc_3549173383");
 
   // add field
   collection.fields.addAt(

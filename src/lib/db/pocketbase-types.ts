@@ -106,6 +106,7 @@ export type AgentsRecord = {
 	created?: IsoDateString
 	email: string
 	emailVisibility?: boolean
+	fullName: string
 	id: string
 	password: string
 	tokenKey: string
@@ -143,7 +144,6 @@ export type TicketsRecord = {
 	customer_id?: RecordIdString
 	id: string
 	message: string
-	reference: string
 	updated?: IsoDateString
 }
 

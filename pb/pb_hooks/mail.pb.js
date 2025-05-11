@@ -53,3 +53,38 @@ onRecordAfterCreateSuccess((e) => {
     e.app.newMailClient().send(message);
   });
 }, "tickets");
+
+/**
+ * Send email to agent when ticket is updated
+ */
+onRecordAfterUpdateSuccess((e) => {
+  e.next();
+
+  // Load mail utils to create email
+  // https://pocketbase.io/docs/js-overview/#loading-modules
+  const mailUtils = require(`${__hooks}/mail.utils.js`);
+
+  // Ticket
+  const ticketRecord = e.record;
+  const ticketId = ticketRecord.get("id");
+
+  // Agent assigned to ticket
+  const agentId = ticketRecord.get("assigned_to");
+  const agent = e.app.findRecordById("agents", agentId);
+
+  // Sender
+  const { senderAddress, senderName } = e.app.settings().meta;
+  const from = { address: senderAddress, name: senderName };
+
+  // Message to agent
+  const message = new MailerMessage({
+    from,
+    to: [{ address: agent.email() }],
+    subject: `Ticket assigned to you`,
+    html: mailUtils.createHtml(`
+        <p>Ticket ${ticketId} has been assigned to you</p>
+    `),
+  });
+
+  e.app.newMailClient().send(message);
+}, "tickets");
