@@ -33,13 +33,17 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex w-full items-center justify-center">
-      <PasswordLogin
-        type={type}
-        onChangeType={handleChangeType}
-        error={formError}
-        onSubmit={handleSubmit}
-      />
-    </div>
+    <section className="grid w-full grid-cols-12 gap-2">
+      <div className="col-span-10 col-start-2 py-4 md:col-span-6 md:col-start-4">
+        <div className="mt-10 flex w-full items-center justify-center">
+          <PasswordLogin
+            type={type}
+            onChangeType={handleChangeType}
+            error={formError}
+            onSubmit={handleSubmit}
+          />
+        </div>
+      </div>
+    </section>
   );
 }
