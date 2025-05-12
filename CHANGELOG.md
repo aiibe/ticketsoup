@@ -1,3 +1,9 @@
+## 0.3.1
+
+### Refactor
+
+- Improve login page
+
 ## 0.3.0
 
 ### Features

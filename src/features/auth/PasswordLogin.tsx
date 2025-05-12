@@ -99,13 +99,20 @@ function LoginTypePicker(props: {
         {loginTypes.map(({ Icon, type, tooltip }) => (
           <Tooltip key={type}>
             <TooltipTrigger>
-              <Icon
-                onClick={() => onChangeType(type)}
+              <div
                 className={cn(
-                  "fill-muted-foreground cursor-pointer",
-                  currentType === type && "fill-primary",
+                  "hover:bg-primary/5 cursor-pointer rounded-lg px-4 py-3",
+                  currentType === type && "bg-primary/10",
                 )}
-              />
+                onClick={() => onChangeType(type)}
+              >
+                <Icon
+                  className={cn(
+                    "fill-muted-foreground",
+                    currentType === type && "fill-primary",
+                  )}
+                />
+              </div>
             </TooltipTrigger>
             <TooltipContent>
               <p>{tooltip}</p>
