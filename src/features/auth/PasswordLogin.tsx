@@ -13,6 +13,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { JSX } from "react";
+import { appVersion } from "@/config";
 
 type Props = {
   type: "agent" | "customer" | "admin";
@@ -59,6 +60,11 @@ export default function PasswordLogin(props: Props) {
           <Button type="submit" className="w-full">
             Sign in
           </Button>
+
+          {/* App version */}
+          <p className="text-muted-foreground text-center text-sm">
+            {appVersion}
+          </p>
         </form>
       </CardContent>
     </Card>

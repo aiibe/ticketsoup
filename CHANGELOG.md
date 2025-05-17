@@ -1,3 +1,9 @@
+## 0.4.0
+
+### Features
+
+- Display app version on login page
+
 ## 0.3.1
 
 ### Refactor
