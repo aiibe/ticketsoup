@@ -11,6 +11,7 @@ import useSubscribeAuth from "./features/auth/useSubscribeAuth";
 import { useEffect } from "react";
 import DiscussionPage from "./pages/DiscussionPage";
 import useSubscribeAgents from "./features/agents/useSubscribeAgents";
+import AuthLayout from "./layouts/AuthLayout";
 
 function App() {
   useSubscribeAuth();
@@ -28,9 +29,12 @@ function App() {
         <Route path="/feedback" component={Feedback} />
         <Route path="/discussion/:id" component={DiscussionPage} />
         <Route path="/ticket/:id" component={TicketPage} />
-        <Route path="/_admin/agents" component={Agents} />
+
         <Route path="/login" component={LoginPage} />
-        <Route path="/" component={Home} />
+        <AuthLayout>
+          <Route path="/_admin/agents" component={Agents} />
+          <Route path="/" component={Home} />
+        </AuthLayout>
         <Route component={NotFound} />
       </Switch>
     </Layout>
