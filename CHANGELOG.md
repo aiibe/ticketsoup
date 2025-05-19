@@ -2,6 +2,7 @@
 
 ### Features
 
+- Add tabs navigation for pages
 - Display app version on login page
 
 ## 0.3.1

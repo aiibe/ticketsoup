@@ -4,10 +4,10 @@ import { AppSettings } from "./settings.types";
 import { pb } from "@/lib/db/pocketbase";
 import { baseUrl } from "@/config";
 import ExternalLink from "@/components/ExternalLink";
-import { useCheckRole } from "../auth/useCheckRole";
+import { Roles, useCheckRole } from "../auth/useCheckRole";
 
 export default function LackSmtpBanner() {
-  const isAdmin = useCheckRole("_superusers");
+  const isAdmin = useCheckRole(Roles.Admins);
   const [ok, setOk] = useState(true);
 
   useEffect(() => {

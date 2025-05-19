@@ -3,6 +3,7 @@ import useAuthStore from "@/features/auth/useAuthStore";
 import { pb } from "@/lib/db/pocketbase";
 import PasswordLogin from "@/features/auth/PasswordLogin";
 import { useState } from "react";
+import { Roles } from "@/features/auth/useCheckRole";
 
 export default function LoginPage() {
   const [, navigate] = useLocation();
@@ -12,9 +13,9 @@ export default function LoginPage() {
   const isAuth = useAuthStore((state) => state.auth);
   if (isAuth) return <Redirect to="/" />;
 
-  let collectionName = "agents";
-  if (type === "customer") collectionName = "customers";
-  if (type === "admin") collectionName = "_superusers";
+  let collectionName = Roles.Agents;
+  if (type === "customer") collectionName = Roles.Customers;
+  if (type === "admin") collectionName = Roles.Admins;
 
   async function handleSubmit(email: string, password: string) {
     setFormError("");
