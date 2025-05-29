@@ -1,3 +1,5 @@
+/// <reference path="../pb_data/types.d.ts" />
+
 /**
  * Email layout taken from https://github.com/pocketbase/pocketbase/blob/master/mails/templates/layout.go
  */

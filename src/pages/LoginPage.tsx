@@ -3,7 +3,7 @@ import useAuthStore from "@/features/auth/useAuthStore";
 import { pb } from "@/lib/db/pocketbase";
 import PasswordLogin from "@/features/auth/PasswordLogin";
 import { useState } from "react";
-import { Roles } from "@/features/auth/useCheckRole";
+import { Roles } from "@/features/auth/useCheckRoles";
 
 export default function LoginPage() {
   const [, navigate] = useLocation();

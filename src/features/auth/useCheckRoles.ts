@@ -7,8 +7,8 @@ export enum Roles {
   Customers = "customers",
 }
 
-export function useCheckRole(role: Roles) {
+export function useCheckRoles(roles: Roles[]) {
   const isAuth = useAuthStore((state) => state.auth);
   if (!pb.authStore?.record) return false;
-  return role === pb.authStore.record.collectionName && isAuth;
+  return roles.includes(pb.authStore.record.collectionName as Roles) && isAuth;
 }

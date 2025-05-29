@@ -1,3 +1,5 @@
+/// <reference path="../pb_data/types.d.ts" />
+
 /**
  * Send email to customer and agents when ticket is submitted
  */
@@ -27,6 +29,9 @@ onRecordAfterCreateSuccess((e) => {
     html: mailUtils.createHtml(`
         <p>Hi <strong>${customer.get("fullName")}</strong>, your ticket has been created.</p>
         <p>Thank you for your feedback. We will get back to you as soon as possible.</p>
+        <p>${appName} team</p>
+        <br>
+        <p>Please do not reply to this email.</p>
     `),
   });
 
@@ -47,6 +52,8 @@ onRecordAfterCreateSuccess((e) => {
           <blockquote>
             <pre><small>${ticketRecord.get("message")}</small></pre>
           </blockquote>
+          <br>
+          <p>Please do not reply to this email.</p>
       `),
     });
 
@@ -58,8 +65,6 @@ onRecordAfterCreateSuccess((e) => {
  * Send email to agent when ticket is updated
  */
 onRecordAfterUpdateSuccess((e) => {
-  e.next();
-
   // Load mail utils to create email
   // https://pocketbase.io/docs/js-overview/#loading-modules
   const mailUtils = require(`${__hooks}/mail.utils.js`);
@@ -68,23 +73,80 @@ onRecordAfterUpdateSuccess((e) => {
   const ticketRecord = e.record;
   const ticketId = ticketRecord.get("id");
 
+  // Previous ticket state
+  const prevTicketRecord = ticketRecord.original();
+  const prevAgentId = prevTicketRecord.get("assigned_to");
+
   // Agent assigned to ticket
   const agentId = ticketRecord.get("assigned_to");
-  const agent = e.app.findRecordById("agents", agentId);
+  if (!agentId) return e.next();
 
-  // Sender
-  const { senderAddress, senderName } = e.app.settings().meta;
+  const agent = e.app.findRecordById("agents", agentId);
+  if (!agent) return e.next();
+
+  // Unless ticket's agent changes, do not send email
+  if (prevAgentId !== agentId) {
+    // Sender
+    const { senderAddress, senderName } = e.app.settings().meta;
+    const from = { address: senderAddress, name: senderName };
+
+    // Message to agent
+    const message = new MailerMessage({
+      from,
+      to: [{ address: agent.email() }],
+      subject: `Ticket assigned to you`,
+      html: mailUtils.createHtml(`
+        <p>Ticket ${ticketId} has been assigned to you</p>
+    `),
+    });
+
+    e.app.newMailClient().send(message);
+  }
+
+  e.next();
+}, "tickets");
+
+/**
+ * Send invitation email to new agent
+ */
+onRecordAfterCreateSuccess((e) => {
+  e.next();
+
+  // Load mail utils to create email
+  // https://pocketbase.io/docs/js-overview/#loading-modules
+  const mailUtils = require(`${__hooks}/mail.utils.js`);
+
+  // Agent
+  const agentRecord = e.record;
+  const agentEmail = agentRecord.get("email");
+  const agentFullName = agentRecord.get("fullName");
+
+  // Generate password reset token
+  const token = e.record.newPasswordResetToken();
+
+  // Email
+  const { senderAddress, senderName, appName, appURL } = e.app.settings().meta;
   const from = { address: senderAddress, name: senderName };
 
-  // Message to agent
   const message = new MailerMessage({
     from,
-    to: [{ address: agent.email() }],
-    subject: `Ticket assigned to you`,
+    to: [{ address: agentEmail }],
+    subject: `You have been invited to join ${appName}`,
     html: mailUtils.createHtml(`
-        <p>Ticket ${ticketId} has been assigned to you</p>
+        <p>Hello ${agentFullName},</p>
+        <p>You are invited to join us at ${appName}.</p>
+        <p>Click on the button below to reset your account's password.</p>
+        <p>
+          <a class="btn" href="${appURL}/confirm-agent/${token}" target="_blank" rel="noopener">Reset password</a>
+        </p>
+        <p>
+          Thanks,<br/>
+          ${appName} team
+        </p>
+        <br>
+        <p>Please do not reply to this email.</p>
     `),
   });
 
   e.app.newMailClient().send(message);
-}, "tickets");
+}, "agents");

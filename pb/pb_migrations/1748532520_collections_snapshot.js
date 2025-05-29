@@ -570,7 +570,7 @@ migrate((app) => {
       "viewRule": null
     },
     {
-      "createRule": "@request.auth.collectionName = \"customer\"",
+      "createRule": "@request.auth.collectionName = \"customers\"",
       "deleteRule": null,
       "fields": [
         {
@@ -639,6 +639,15 @@ migrate((app) => {
         },
         {
           "hidden": false,
+          "id": "bool80170468",
+          "name": "closed",
+          "presentable": false,
+          "required": false,
+          "system": false,
+          "type": "bool"
+        },
+        {
+          "hidden": false,
           "id": "autodate3332085495",
           "name": "updated",
           "onCreate": true,
@@ -654,7 +663,7 @@ migrate((app) => {
       "name": "tickets",
       "system": false,
       "type": "base",
-      "updateRule": null,
+      "updateRule": "@request.auth.collectionName = \"agents\"",
       "viewRule": "@request.auth.collectionName = \"agents\" || @request.auth.id = customer_id"
     },
     {
@@ -663,7 +672,7 @@ migrate((app) => {
           "body": "<p>Hello,</p>\n<p>We noticed a login to your {APP_NAME} account from a new location.</p>\n<p>If this was you, you may disregard this email.</p>\n<p><strong>If this wasn't you, you should immediately change your {APP_NAME} account password to revoke access from all other locations.</strong></p>\n<p>\n  Thanks,<br/>\n  {APP_NAME} team\n</p>",
           "subject": "Login from a new location"
         },
-        "enabled": true
+        "enabled": false
       },
       "authRule": "",
       "authToken": {
@@ -750,6 +759,20 @@ migrate((app) => {
           "type": "bool"
         },
         {
+          "autogeneratePattern": "",
+          "hidden": false,
+          "id": "text827839120",
+          "max": 128,
+          "min": 1,
+          "name": "fullName",
+          "pattern": "",
+          "presentable": false,
+          "primaryKey": false,
+          "required": true,
+          "system": false,
+          "type": "text"
+        },
+        {
           "hidden": false,
           "id": "autodate2990389176",
           "name": "created",
@@ -801,11 +824,11 @@ migrate((app) => {
           "body": "<p>Hello,</p>\n<p>Your one-time password is: <strong>{OTP}</strong></p>\n<p><i>If you didn't ask for the one-time password, you can ignore this email.</i></p>\n<p>\n  Thanks,<br/>\n  {APP_NAME} team\n</p>",
           "subject": "OTP for {APP_NAME}"
         },
-        "enabled": true,
+        "enabled": false,
         "length": 8
       },
       "passwordAuth": {
-        "enabled": false,
+        "enabled": true,
         "identityFields": [
           "email"
         ]
@@ -821,7 +844,7 @@ migrate((app) => {
       "type": "auth",
       "updateRule": null,
       "verificationTemplate": {
-        "body": "<p>Hello,</p>\n<p>Thank you for joining us at {APP_NAME}.</p>\n<p>Click on the button below to verify your email address.</p>\n<p>\n  <a class=\"btn\" href=\"{APP_URL}/_/#/auth/confirm-verification/{TOKEN}\" target=\"_blank\" rel=\"noopener\">Verify</a>\n</p>\n<p>\n  Thanks,<br/>\n  {APP_NAME} team\n</p>",
+        "body": "<p>Hello,</p>\n<p>You are invited to join us at {APP_NAME}.</p>\n<p>Click on the button below to verify your email address.</p>\n<p>\n  <a class=\"btn\" href=\"{APP_URL}/_/#/auth/confirm-verification/{TOKEN}\" target=\"_blank\" rel=\"noopener\">Verify</a>\n</p>\n<p>\n  Thanks,<br/>\n  {APP_NAME} team\n</p>",
         "subject": "Verify your {APP_NAME} email"
       },
       "verificationToken": {
@@ -1018,7 +1041,7 @@ migrate((app) => {
           "id": "bool1547992806",
           "name": "emailVisibility",
           "presentable": false,
-          "required": false,
+          "required": true,
           "system": true,
           "type": "bool"
         },
@@ -1030,6 +1053,20 @@ migrate((app) => {
           "required": false,
           "system": true,
           "type": "bool"
+        },
+        {
+          "autogeneratePattern": "",
+          "hidden": false,
+          "id": "text827839120",
+          "max": 128,
+          "min": 1,
+          "name": "fullName",
+          "pattern": "",
+          "presentable": false,
+          "primaryKey": false,
+          "required": true,
+          "system": false,
+          "type": "text"
         },
         {
           "hidden": false,
@@ -1087,7 +1124,7 @@ migrate((app) => {
         "length": 8
       },
       "passwordAuth": {
-        "enabled": false,
+        "enabled": true,
         "identityFields": [
           "email"
         ]
@@ -1110,6 +1147,85 @@ migrate((app) => {
         "duration": 259200
       },
       "viewRule": "@request.auth.collectionName = \"agents\" || @request.auth.id = id"
+    },
+    {
+      "createRule": null,
+      "deleteRule": null,
+      "fields": [
+        {
+          "autogeneratePattern": "[a-z0-9]{15}",
+          "hidden": false,
+          "id": "text3208210256",
+          "max": 15,
+          "min": 15,
+          "name": "id",
+          "pattern": "^[a-z0-9]+$",
+          "presentable": false,
+          "primaryKey": true,
+          "required": true,
+          "system": true,
+          "type": "text"
+        },
+        {
+          "cascadeDelete": false,
+          "collectionId": "pbc_3549173383",
+          "hidden": false,
+          "id": "relation873754891",
+          "maxSelect": 1,
+          "minSelect": 0,
+          "name": "agent_id",
+          "presentable": false,
+          "required": false,
+          "system": false,
+          "type": "relation"
+        },
+        {
+          "cascadeDelete": false,
+          "collectionId": "pbc_1751747783",
+          "hidden": false,
+          "id": "relation2476065779",
+          "maxSelect": 1,
+          "minSelect": 0,
+          "name": "customer_id",
+          "presentable": false,
+          "required": false,
+          "system": false,
+          "type": "relation"
+        },
+        {
+          "hidden": false,
+          "id": "select1204587666",
+          "maxSelect": 1,
+          "name": "action",
+          "presentable": false,
+          "required": false,
+          "system": false,
+          "type": "select",
+          "values": [
+            "create_message",
+            "update_message",
+            "delete_message"
+          ]
+        },
+        {
+          "hidden": false,
+          "id": "autodate2990389176",
+          "name": "created",
+          "onCreate": true,
+          "onUpdate": false,
+          "presentable": false,
+          "system": false,
+          "type": "autodate"
+        }
+      ],
+      "id": "pbc_1262591861",
+      "indexes": [],
+      "listRule": "@request.auth.collectionName = \"agents\"",
+      "name": "activities",
+      "system": false,
+      "type": "base",
+      "updateRule": null,
+      "viewRule": null
     }
   ];
 
