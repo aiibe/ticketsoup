@@ -30,6 +30,7 @@
   --chart-5: hsl(22.93 102.14% 55.27%);
   --radius: 0.5rem;
   --warning: hsl(40, 100%, 85%);
+  --success: hsl(120, 32%, 45%);
 }
 
 .dark {
@@ -65,6 +66,7 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
   --warning: hsl(40, 100%, 85%);
+  --success: hsl(120, 32%, 45%);
 }
 
 @theme inline {
@@ -104,6 +106,7 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-warning: var(--warning);
+  --color-success: var(--success);
 }
 
 @layer base {

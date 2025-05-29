@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { useCheckRole } from "../auth/useCheckRole";
+import { Roles, useCheckRoles } from "../auth/useCheckRoles";
 import { TicketStatus } from "./ticket.types";
 import { useFilterTickets } from "./useFilterTickets";
 import CreateTicketButtonDialog from "./CreateTicketButtonDialog";
@@ -12,7 +12,7 @@ type Props = {
 
 export default function TicketList(props: Props) {
   const { className, status } = props;
-  const isCustomer = useCheckRole("customers");
+  const isCustomer = useCheckRoles([Roles.Customers]);
   const filteredTickets = useFilterTickets();
   let tickets = filteredTickets.all;
 

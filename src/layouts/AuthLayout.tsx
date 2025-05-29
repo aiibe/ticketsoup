@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import { NavigationTabs } from "@/features/navigation/NavigationTabs";
+import NavigationTabs from "@/features/navigation/NavigationTabs";
 
 export default function AuthLayout(props: PropsWithChildren) {
   const { children } = props;

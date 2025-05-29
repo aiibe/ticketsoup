@@ -4,7 +4,7 @@ import { useCallback, useEffect } from "react";
 import useAuthStore from "../auth/useAuthStore";
 import useAgentStore from "./useAgentStore";
 import { Agent, getAllAgents } from "@/api/agents";
-import { useCheckRole } from "../auth/useCheckRole";
+import { Roles, useCheckRoles } from "../auth/useCheckRoles";
 
 export default function useSubscribeAgents() {
   const setAgents = useAgentStore((state) => state.setAgents);
@@ -12,7 +12,7 @@ export default function useSubscribeAgents() {
   const removeAgent = useAgentStore((state) => state.removeAgent);
   const updateAgent = useAgentStore((state) => state.updateAgent);
   const isAuth = useAuthStore((state) => state.auth);
-  const isCustomer = useCheckRole("customers");
+  const isCustomer = useCheckRoles([Roles.Customers]);
 
   // Hydrate
   useEffect(() => {

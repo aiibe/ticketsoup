@@ -3,16 +3,16 @@ import { TabList } from "./tabs/TabList";
 import { OpenTickets } from "./tabs/content/OpenTickets";
 import { InProgressTickets } from "./tabs/content/InProgressTickets";
 import { ClosedTickets } from "./tabs/content/ClosedTickets";
-import { useCheckRole } from "../auth/useCheckRole";
+import { Roles, useCheckRoles } from "../auth/useCheckRoles";
 import CreateTicketButtonDialog from "./CreateTicketButtonDialog";
 
 export default function TicketsView() {
-  const isCustomer = useCheckRole("customers");
+  const isCustomer = useCheckRoles([Roles.Customers]);
 
   return (
     <div className="mb-4">
-      <div className="flex justify-between">
-        <h1 className="mb-4 text-2xl font-bold">Tickets</h1>
+      <div className="mb-4 flex justify-between">
+        <h1 className="text-2xl font-bold">Tickets</h1>
         {isCustomer && <CreateTicketButtonDialog />}
       </div>
 
