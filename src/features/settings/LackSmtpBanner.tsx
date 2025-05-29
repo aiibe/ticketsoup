@@ -4,23 +4,31 @@ import { AppSettings } from "./settings.types";
 import { pb } from "@/lib/db/pocketbase";
 import { baseUrl } from "@/config";
 import ExternalLink from "@/components/ExternalLink";
-import { Roles, useCheckRole } from "../auth/useCheckRole";
+import { Roles, useCheckRoles } from "../auth/useCheckRoles";
+import useAuthStore from "../auth/useAuthStore";
 
 export default function LackSmtpBanner() {
-  const isAdmin = useCheckRole(Roles.Admins);
+  const setAuth = useAuthStore((state) => state.setAuth);
+  const isAdmin = useCheckRoles([Roles.Admins]);
+
   const [ok, setOk] = useState(true);
 
   useEffect(() => {
     async function checkSettings() {
-      const settings = await pb.settings.getAll();
-      const { smtp } = settings as AppSettings;
-      setOk(smtp.enabled);
+      try {
+        const settings = await pb.settings.getAll();
+        const { smtp } = settings as AppSettings;
+        setOk(smtp.enabled);
+      } catch (error) {
+        console.log(error);
+        setAuth(false);
+      }
     }
 
     if (isAdmin) {
       checkSettings();
     }
-  }, [isAdmin]);
+  }, [isAdmin, setAuth]);
 
   if (ok || !isAdmin) return null;
 

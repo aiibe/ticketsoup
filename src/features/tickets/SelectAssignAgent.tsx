@@ -10,7 +10,7 @@ import {
 import useAgentStore from "../agents/useAgentStore";
 import { assignAgent } from "@/api/tickets";
 import { toast } from "sonner";
-import { useCheckRole } from "../auth/useCheckRole";
+import { Roles, useCheckRoles } from "../auth/useCheckRoles";
 import { pb } from "@/lib/db/pocketbase";
 import { Agent } from "@/api/agents";
 import UserAvatar from "@/components/UserAvatar";
@@ -23,7 +23,7 @@ type Props = {
 export function SelectAssignAgent(props: Props) {
   const { defaultValue = "", ticketId } = props;
   const agentsList = useAgentStore((state) => state.agents);
-  const isCustomer = useCheckRole("customers");
+  const isCustomer = useCheckRoles([Roles.Customers]);
 
   if (isCustomer) return null;
 

@@ -31,7 +31,8 @@ export default function CreateTicketButtonDialog() {
     const message = form.message.value;
 
     if (!message) {
-      setError({ message: "Please enter a message" });
+      setLoading(false);
+      return setError({ message: "Please enter a message" });
     } else {
       const { error, data } = await createFeedback({
         fullName: customerFullName,

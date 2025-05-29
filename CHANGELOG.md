@@ -2,14 +2,23 @@
 
 ### Features
 
+- Super admin can add and delete agents
+- Newly added agent will receive email to set their password
 - Add tabs navigation for pages
 - Display app version on login page
 
-## 0.3.1
+### Fixes
+
+- Auto logout when fails to fetch app settings
+- Notify agent when ticket is assigned
 
 ### Refactor
 
 - Improve login page
+
+### Chore
+
+- Update Pocketbase sdk and db
 
 ## 0.3.0
 
