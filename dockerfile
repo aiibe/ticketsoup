@@ -41,4 +41,8 @@ COPY ./pb/pb_hooks /pb_hooks
 
 EXPOSE 8090
 
-CMD ["/bin/sh", "-c", "/pocketbase superuser upsert \"$SUPERUSER_EMAIL\" \"$SUPERUSER_PASSWORD\" && /pocketbase serve --http=0.0.0.0:8090"]
+# Copy entry script
+COPY docker-entry.sh /docker-entry.sh
+RUN chmod +x /docker-entry.sh
+
+ENTRYPOINT ["/docker-entry.sh"]
