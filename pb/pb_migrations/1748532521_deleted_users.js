@@ -2,6 +2,5 @@
 
 migrate((app) => {
   const collection = app.findCollectionByNameOrId("_pb_users_auth_");
-
-  return app.delete(collection);
+  if (collection) return app.delete(collection);
 });
