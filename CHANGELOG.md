@@ -1,3 +1,10 @@
+## 0.4.1
+
+### Fixes
+
+- Fail migrations
+- Update dockerfile
+
 ## 0.4.0
 
 ### Features
