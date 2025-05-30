@@ -1,7 +1,7 @@
 services:
   ticketsoup:
     container_name: ticketsoup
-    image: ghcr.io/aiibe/ticketsoup:0.4.1
+    image: ghcr.io/aiibe/ticketsoup:0.5.0-alpha # Not published yet
     restart: unless-stopped
     ports:
       - 8090:8090
@@ -10,6 +10,13 @@ services:
     environment:
       - SUPERUSER_EMAIL=${SUPERUSER_EMAIL}
       - SUPERUSER_PASSWORD=${SUPERUSER_PASSWORD}
+      - APP_URL=${APP_URL}
+      - APP_NAME=${APP_NAME}
+      - SENDER_EMAIL=${SENDER_EMAIL}
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - SMTP_PORT=${SMTP_PORT}
 
 volumes:
   pb_data:
