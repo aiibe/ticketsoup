@@ -1,7 +1,7 @@
 services:
   ticketsoup:
     container_name: ticketsoup
-    image: ghcr.io/aiibe/ticketsoup:0.5.0-alpha # Not published yet
+    image: ghcr.io/aiibe/ticketsoup:0.5.0
     restart: unless-stopped
     ports:
       - 8090:8090

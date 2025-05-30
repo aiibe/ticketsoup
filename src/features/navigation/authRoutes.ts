@@ -15,4 +15,10 @@ export const authRoutes: Route[] = [
     view: AgentsPage,
     hiddenToRoles: [Roles.Customers, Roles.Agents],
   },
+  {
+    label: "Feedback Form",
+    location: "/_admin/feedback",
+    view: AgentsPage,
+    hiddenToRoles: [Roles.Customers, Roles.Agents],
+  },
 ];

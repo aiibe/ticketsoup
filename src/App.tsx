@@ -5,7 +5,7 @@ import Layout from "./layouts/Layout";
 import LoginPage from "./pages/LoginPage";
 import TicketPage from "./pages/TicketPage";
 import AgentsPage from "./pages/AgentsPage";
-import Feedback from "./pages/Feedback";
+import FeedbackPage from "./pages/FeedbackPage";
 import useSubscribeTickets from "./features/tickets/useSubscribeTickets";
 import useSubscribeAuth from "./features/auth/useSubscribeAuth";
 import { useEffect } from "react";
@@ -28,13 +28,13 @@ function App() {
     <Layout>
       <Switch>
         <Route path="/confirm-agent/:token?" component={ConfirmAgentPage} />
-        <Route path="/feedback" component={Feedback} />
         <Route path="/discussion/:id" component={DiscussionPage} />
         <Route path="/ticket/:id" component={TicketPage} />
 
         <Route path="/login" component={LoginPage} />
         <AuthLayout>
           <Route path="/_admin/agents" component={AgentsPage} />
+          <Route path="/_admin/feedback" component={FeedbackPage} />
           <Route path="/" component={HomePage} />
         </AuthLayout>
         <Route component={NotFound} />
