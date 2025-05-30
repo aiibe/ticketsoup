@@ -14,7 +14,7 @@ onRecordAfterCreateSuccess((e) => {
   const ticketRecord = e.record;
 
   // Sender
-  const { senderAddress, senderName } = e.app.settings().meta;
+  const { senderAddress, senderName, appName } = e.app.settings().meta;
   const from = { address: senderAddress, name: senderName };
 
   // Customer
