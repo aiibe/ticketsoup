@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "rsbuild build",
-    "dev": "concurrently \"./pb/pocketbase serve\" \"rsbuild dev --port 5173\"",
+    "dev": "dotenv -e .env.local concurrently \"./pb/pocketbase serve --dev\" \"rsbuild dev --port 5173\"",
     "format": "prettier --write .",
     "lint": "eslint .",
     "preview": "rsbuild preview",
@@ -44,6 +44,7 @@
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.1",
     "concurrently": "^9.1.2",
+    "dotenv-cli": "^8.0.0",
     "eslint": "^9.23.0",
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.2.0",
