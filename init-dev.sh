@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# Load .env
-if [ -f .env ]; then
-    source .env
+# Load .env.local
+if [ -f .env.local ]; then
+    source .env.local
     if [ -z "$SUPERUSER_EMAIL" ] || [ -z "$SUPERUSER_PASSWORD" ]; then
-        echo "Error: Missing SUPERUSER_EMAIL or SUPERUSER_PASSWORD in .env file"
+        echo "Error: Missing SUPERUSER_EMAIL or SUPERUSER_PASSWORD in .env.local file"
         exit 1
     fi
 else
-    echo "Error: Missing .env file"
+    echo "Error: Missing .env.local file"
     exit 1
 fi
 
