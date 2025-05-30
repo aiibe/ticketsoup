@@ -68,7 +68,9 @@ export default function CreateUpdateAgentButtonDialog() {
               {error?.name && (
                 <p className="text-destructive text-xs italic">{error.name}</p>
               )}
+            </div>
 
+            <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input id="email" name="email" placeholder="Email" type="email" />
               {error?.email && (

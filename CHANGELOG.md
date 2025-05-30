@@ -1,12 +1,18 @@
-## 0.5.0-alpha
+## 0.5.0
 
 ### Features
 
+- Feedback form on admin page
 - Add default env variables to init app
 
 ### Fixes
 
+- Missing app name in email
 - Fail migrations
+
+### Chore
+
+- Load .env.local
 
 ## 0.4.1
 
