@@ -1,3 +1,13 @@
+## 0.5.0-alpha
+
+### Features
+
+- Add default env variables to init app
+
+### Fixes
+
+- Fail migrations
+
 ## 0.4.1
 
 ### Fixes
