@@ -9,6 +9,10 @@
 
 - Set cursor pointer on select agent to assign ticket
 
+### Chore
+
+- Bump pocketbase v0.30.0
+
 ## 0.5.0
 
 ### Features

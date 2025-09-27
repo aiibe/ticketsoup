@@ -17,7 +17,7 @@ RUN pnpm build
 # --- PocketBase Download Stage ---
 FROM alpine:latest AS pb_downloader
 
-ARG PB_VERSION=0.28.2
+ARG PB_VERSION=0.30.0
 
 RUN apk add --no-cache unzip curl && \
     curl -L -o /tmp/pb.zip https://github.com/pocketbase/pocketbase/releases/download/v${PB_VERSION}/pocketbase_${PB_VERSION}_linux_amd64.zip && \
