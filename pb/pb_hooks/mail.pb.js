@@ -12,6 +12,7 @@ onRecordAfterCreateSuccess((e) => {
 
   // Ticket
   const ticketRecord = e.record;
+  const ticketId = ticketRecord.get("id");
 
   // Sender
   const { senderAddress, senderName, appName } = e.app.settings().meta;
@@ -25,7 +26,7 @@ onRecordAfterCreateSuccess((e) => {
   const customerMessage = new MailerMessage({
     from,
     to: [{ address: customer.email() }],
-    subject: "Your ticket has been created",
+    subject: `Your ticket #${ticketId} has been created`,
     html: mailUtils.createHtml(`
         <p>Hi <strong>${customer.get("fullName")}</strong>, your ticket has been created.</p>
         <p>Thank you for your feedback. We will get back to you as soon as possible.</p>
@@ -39,15 +40,16 @@ onRecordAfterCreateSuccess((e) => {
 
   // Agents
   const agents = e.app.findAllRecords("agents");
+  const { appURL } = e.app.settings().meta;
 
   // Message each agent
   agents.forEach((agent) => {
     const message = new MailerMessage({
       from,
       to: [{ address: agent.email() }],
-      subject: "New ticket submitted",
+      subject: `New ticket #${ticketId} submitted`,
       html: mailUtils.createHtml(`
-          <p>A new ticket has been submitted by <strong>${customer.get("fullName")}</strong></p>
+          <p>A new <a href="${appURL}/ticket/${ticketId}" target="_blank" rel="noopener">ticket #${ticketId}</a> has been submitted by <strong>${customer.get("fullName")}</strong></p>
           <br />
           <blockquote>
             <pre><small>${ticketRecord.get("message")}</small></pre>
@@ -87,16 +89,17 @@ onRecordAfterUpdateSuccess((e) => {
   // Unless ticket's agent changes, do not send email
   if (prevAgentId !== agentId) {
     // Sender
-    const { senderAddress, senderName } = e.app.settings().meta;
+    const { senderAddress, senderName, appURL } = e.app.settings().meta;
     const from = { address: senderAddress, name: senderName };
 
     // Message to agent
     const message = new MailerMessage({
       from,
       to: [{ address: agent.email() }],
-      subject: `Ticket assigned to you`,
+      subject: `Ticket #${ticketId} assigned to you`,
       html: mailUtils.createHtml(`
-        <p>Ticket ${ticketId} has been assigned to you</p>
+        <p><a href="${appURL}/ticket/${ticketId}" target="_blank" rel="noopener">Ticket #${ticketId}</a> has been assigned to you</p>
+        <p><em>"${ticketRecord.get("message").substring(0, 100)}..."</em></p>
     `),
     });
 

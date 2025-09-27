@@ -3,6 +3,7 @@
 ### Fixes
 
 - Fix routing
+- Improved email notifications with ticket links and IDs
 
 ### Styles
 
