@@ -1,3 +1,9 @@
+## 0.5.1
+
+### Styles
+
+- Set cursor pointer on select agent to assign ticket
+
 ## 0.5.0
 
 ### Features

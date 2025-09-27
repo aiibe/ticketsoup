@@ -54,7 +54,11 @@ export function SelectAssignAgent(props: Props) {
         <SelectGroup>
           <SelectLabel>Assign to :</SelectLabel>
           {agentsList.map((agent) => (
-            <SelectItem key={agent.id} value={agent.id}>
+            <SelectItem
+              key={agent.id}
+              value={agent.id}
+              className="cursor-pointer"
+            >
               <UserAvatar className="h-6 w-6" name={agent.fullName} />
 
               {getAgentName(agent)}
