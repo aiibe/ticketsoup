@@ -30,13 +30,17 @@ function App() {
         <Route path="/confirm-agent/:token?" component={ConfirmAgentPage} />
         <Route path="/discussion/:id" component={DiscussionPage} />
         <Route path="/ticket/:id" component={TicketPage} />
-
         <Route path="/login" component={LoginPage} />
+
         <AuthLayout>
-          <Route path="/_admin/agents" component={AgentsPage} />
-          <Route path="/_admin/feedback" component={FeedbackPage} />
-          <Route path="/" component={HomePage} />
+          <Switch>
+            <Route path="/_admin/agents" component={AgentsPage} />
+            <Route path="/_admin/feedback" component={FeedbackPage} />
+            <Route path="/" component={HomePage} />
+            <Route component={NotFound} />
+          </Switch>
         </AuthLayout>
+
         <Route component={NotFound} />
       </Switch>
     </Layout>

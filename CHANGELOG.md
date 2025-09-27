@@ -1,5 +1,9 @@
 ## 0.5.1
 
+### Fixes
+
+- Fix routing
+
 ### Styles
 
 - Set cursor pointer on select agent to assign ticket
