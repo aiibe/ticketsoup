@@ -4,6 +4,14 @@
 
 - Close ticket
 
+### Refactor
+
+- Remove unused views routes
+
+### Styles
+
+- Set smaller header size
+
 ## 0.5.1
 
 ### Fixes

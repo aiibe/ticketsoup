@@ -12,7 +12,7 @@ export default function TicketsView() {
   return (
     <div className="mb-4">
       <div className="mb-4 flex justify-between">
-        <h1 className="text-2xl font-bold">Tickets</h1>
+        <h1 className="text-xl font-semibold">Tickets</h1>
         {isCustomer && <CreateTicketButtonDialog />}
       </div>
 

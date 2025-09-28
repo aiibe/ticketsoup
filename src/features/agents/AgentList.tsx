@@ -18,7 +18,7 @@ export default function AgentList() {
   return (
     <div>
       <div className="mb-4 flex justify-between">
-        <h1 className="text-2xl font-bold">Agents</h1>
+        <h1 className="text-xl font-semibold">Agents</h1>
         <CreateUpdateAgentButtonDialog />
       </div>
 
