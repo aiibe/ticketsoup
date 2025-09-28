@@ -28,7 +28,7 @@ docker compose --env-file .env.local up -d
 
 ## Development
 
-1. Create `.env` file with `SUPERUSER_EMAIL` and `SUPERUSER_PASSWORD`
+1. Create `.env.local` file with `SUPERUSER_EMAIL` and `SUPERUSER_PASSWORD`
 
 2. Download [Pocketbase](https://pocketbase.io/docs/) and place `pocketbase` executable into `pb` directory
 
