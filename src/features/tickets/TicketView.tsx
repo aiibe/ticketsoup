@@ -10,6 +10,8 @@ import { pb } from "@/lib/db/pocketbase";
 import { ChevronLeft } from "lucide-react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
+import { Roles, useCheckRoles } from "../auth/useCheckRoles";
+import CloseTicketDialog from "./CloseTicketDialog";
 
 type Props = {
   ticketId: string;
@@ -23,6 +25,7 @@ export default function TicketView(props: Props) {
   const ticket = tickets.find((t) => t.id === ticketId);
 
   const isAuth = useAuthStore((state) => state.auth);
+  const canCloseTicket = useCheckRoles([Roles.Agents, Roles.Admins]);
 
   const { messages, loading: loadingMessages } = useSubscribeMessages(ticketId);
 
@@ -76,9 +79,19 @@ export default function TicketView(props: Props) {
     <div className="relative flex flex-col gap-4">
       <div className="top-0 right-0 left-0 z-10">
         <div>
-          <Button size="sm" variant="ghost" onClick={() => navigate("/")}>
-            <ChevronLeft /> Back
-          </Button>
+          <div className="flex items-center justify-between">
+            <Button size="sm" variant="ghost" onClick={() => navigate("/")}>
+              <ChevronLeft /> Back
+            </Button>
+
+            {canCloseTicket && !ticket.closed && (
+              <CloseTicketDialog ticketId={ticket.id}>
+                <Button size="sm" variant="ghost" className="shadow-none">
+                  Close ticket
+                </Button>
+              </CloseTicketDialog>
+            )}
+          </div>
 
           <div className="p-2 text-center">
             <h1 className="text-center">Ticket {ticket.id}</h1>

@@ -88,3 +88,21 @@ export async function assignAgent(ticketId: string, agentId: string) {
     };
   }
 }
+
+// Close a ticket
+export async function closeTicket(ticketId: string) {
+  try {
+    const resp = await pb.collection("tickets").update(ticketId, {
+      closed: true,
+    });
+    return {
+      error: null,
+      data: resp,
+    };
+  } catch (error) {
+    return {
+      error: (error as ClientResponseError).data,
+      data: null,
+    };
+  }
+}

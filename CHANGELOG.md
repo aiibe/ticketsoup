@@ -1,3 +1,9 @@
+## 0.6.0
+
+### Features
+
+- Close ticket
+
 ## 0.5.1
 
 ### Fixes
