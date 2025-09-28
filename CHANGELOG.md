@@ -3,6 +3,7 @@
 ### Features
 
 - Close ticket
+- Send email notification to customer when ticket is closed
 
 ### Refactor
 
