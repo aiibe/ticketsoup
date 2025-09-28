@@ -8,6 +8,7 @@
 ### Refactor
 
 - Remove unused views routes
+- Restructure email hooks into modular system with separate files for each email type
 
 ### Styles
 
